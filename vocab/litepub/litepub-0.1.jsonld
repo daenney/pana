@@ -1,0 +1,51 @@
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/security/v1",
+        {
+            "ChatMessage": "litepub:ChatMessage",
+            "Emoji": "toot:Emoji",
+            "EmojiReact": "litepub:EmojiReact",
+            "Hashtag": "as:Hashtag",
+            "PropertyValue": "schema:PropertyValue",
+            "alsoKnownAs": {
+                "@id": "as:alsoKnownAs",
+                "@type": "@id"
+            },
+            "atomUri": "ostatus:atomUri",
+            "capabilities": "litepub:capabilities",
+            "contentMap": {
+                "@container": "@language",
+                "@id": "as:content"
+            },
+            "conversation": {
+                "@id": "ostatus:conversation",
+                "@type": "@id"
+            },
+            "directMessage": "litepub:directMessage",
+            "discoverable": "toot:discoverable",
+            "fedibird": "http://fedibird.com/ns#",
+            "formerRepresentations": "litepub:formerRepresentations",
+            "invisible": "litepub:invisible",
+            "listMessage": {
+                "@id": "litepub:listMessage",
+                "@type": "@id"
+            },
+            "litepub": "http://litepub.social/ns#",
+            "manuallyApprovesFollowers": "as:manuallyApprovesFollowers",
+            "misskey": "https://misskey-hub.net/ns#",
+            "oauthRegistrationEndpoint": {
+                "@id": "litepub:oauthRegistrationEndpoint",
+                "@type": "@id"
+            },
+            "ostatus": "http://ostatus.org#",
+            "quoteUri": "fedibird:quoteUri",
+            "quoteUrl": "as:quoteUrl",
+            "schema": "http://schema.org#",
+            "sensitive": "as:sensitive",
+            "toot": "http://joinmastodon.org/ns#",
+            "value": "schema:value",
+            "vcard": "http://www.w3.org/2006/vcard/ns#"
+        }
+    ]
+}
