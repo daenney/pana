@@ -125,11 +125,6 @@ func NewUpdate() *Update {
 	return (*Update)(NewActivity().SetType(as.TypeUpdate))
 }
 
-// AsAny casts to [Any] which is accepted by package helper functions.
-func (a *Activity) AsAny() *Any {
-	return (*Any)(a)
-}
-
 // Build finalises the Activity.
 func (a *Activity) Build() Activity {
 	return *a
@@ -137,7 +132,7 @@ func (a *Activity) Build() Activity {
 
 // IsIntransitive returns true if the activity has no object.
 func (a *Activity) IsIntransitive() bool {
-	return !Has((*Any)(a), as.Object)
+	return !Has(a, as.Object)
 }
 
 // See [Object.GetID].
