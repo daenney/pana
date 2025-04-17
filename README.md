@@ -15,7 +15,7 @@ The API Pana provides is tailored towards social media style applications. The u
 The [Go documentation][godoc] includes a [few examples][godocex].
 
 [godoc]: https://pkg.go.dev/code.dny.dev/pana
-[godocex]: https://pkg.go.dev/code.dny.dev/pana#example-package
+[godocex]: https://pkg.go.dev/code.dny.dev/pana#pkg-examples
 
 ## Contributing
 
