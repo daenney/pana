@@ -23,14 +23,25 @@ func (pk *PublicKey) Build() PublicKey {
 	return *pk
 }
 
-// See [Object.GetID].
+// GetID returns the ID in [ld.Node].
 func (pk *PublicKey) GetID() string {
 	return pk.ID
 }
 
-// See [Object.SetID].
+// SetID sets the ID in [ld.Node].
 func (pk *PublicKey) SetID(id string) *PublicKey {
 	pk.ID = id
+	return pk
+}
+
+// GetType returns the first type on the [ld.Node].
+func (pk *PublicKey) GetType() string {
+	return pk.Type[0]
+}
+
+// SetType sets the type on the [ld.Node].
+func (pk *PublicKey) SetType(id string) *PublicKey {
+	pk.Type = []string{id}
 	return pk
 }
 
