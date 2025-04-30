@@ -9,6 +9,7 @@ import (
 
 	ld "code.dny.dev/longdistance"
 	"code.dny.dev/pana/internal/json"
+	"code.dny.dev/pana/vocab/geojson"
 	gts "code.dny.dev/pana/vocab/gotosocial"
 	"code.dny.dev/pana/vocab/litepub"
 	as "code.dny.dev/pana/vocab/w3/activitystreams"
@@ -28,7 +29,7 @@ type Builtin struct {
 
 func New() *Builtin {
 	b := &Builtin{
-		domains: make(map[string]ld.Document, 6),
+		domains: make(map[string]ld.Document, 8),
 		paths:   make(map[string]ld.Document, 2),
 	}
 	b.RegisterContextURL(as.IRI, as.ContextDocument)
@@ -37,6 +38,7 @@ func New() *Builtin {
 	b.RegisterContextURL(idv1.IRI, idv1.ContextDocument)
 	b.RegisterContextURL(secv1.IRI, secv1.ContextDocument)
 	b.RegisterContextURL(litepub.IRI, litepub.ContextDocument)
+	b.RegisterContextURL(geojson.IRI, geojson.ContextDocument)
 	b.RegisterContextPath("/litepub-0.1.jsonld", litepub.ContextDocument1dot0)
 	return b
 }

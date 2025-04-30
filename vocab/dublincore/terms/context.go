@@ -5,7 +5,10 @@ package terms
 const Namespace = "http://purl.org/dc/terms/"
 
 const (
-	Created = Namespace + "created"
-	Creator = Namespace + "creator"
-	Title   = Namespace + "title"
+	Created     = Namespace + "created"
+	Creator     = Namespace + "creator"
+	Description = Namespace + "description"
+	License     = Namespace + "license"
+	Source      = Namespace + "source"
+	Title       = Namespace + "title"
 )
