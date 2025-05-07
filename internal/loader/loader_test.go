@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/internal/json"
-	"code.dny.dev/pana/internal/loader"
-	"code.dny.dev/pana/vocab/litepub"
-	"code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/internal/loader"
+	"sourcery.dny.nu/pana/vocab/litepub"
+	"sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 func TestLoaderURL(t *testing.T) {

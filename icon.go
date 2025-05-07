@@ -3,8 +3,8 @@ package pana
 import (
 	"encoding/json"
 
-	ld "code.dny.dev/longdistance"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Icon is a more constrained version of [Image] used with [as.Icon].

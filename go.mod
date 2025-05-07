@@ -1,5 +1,5 @@
-module code.dny.dev/pana
+module sourcery.dny.nu/pana
 
 go 1.24
 
-require code.dny.dev/longdistance v0.1.0
+require sourcery.dny.nu/longdistance v0.1.1

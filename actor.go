@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"iter"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/vocab/mastodon"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
-	ldp "code.dny.dev/pana/vocab/w3/ldp"
-	secv1 "code.dny.dev/pana/vocab/w3id/securityv1"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/vocab/mastodon"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	ldp "sourcery.dny.nu/pana/vocab/w3/ldp"
+	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
 
 // Actor is the ActivityStreams Actor type.

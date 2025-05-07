@@ -1,6 +1,6 @@
 package pana
 
-import ld "code.dny.dev/longdistance"
+import ld "sourcery.dny.nu/longdistance"
 
 // Relationship is the ActivityStreams Relationship type.
 type Relationship Object

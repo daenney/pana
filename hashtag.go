@@ -1,7 +1,7 @@
 package pana
 
 import (
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Hashtag is the ActivityStreams Hashtag.

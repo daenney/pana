@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"iter"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/vocab/litepub"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/vocab/litepub"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Note is the ActivityStreams Note type.

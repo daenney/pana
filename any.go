@@ -1,6 +1,6 @@
 package pana
 
-import ld "code.dny.dev/longdistance"
+import ld "sourcery.dny.nu/longdistance"
 
 // Any is returned when a property can return [Link] or [Object].
 //

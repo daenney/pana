@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"log/slog"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/internal/json"
-	"code.dny.dev/pana/internal/loader"
-	"code.dny.dev/pana/vocab/schema"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/internal/loader"
+	"sourcery.dny.nu/pana/vocab/schema"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Processor is used to process incoming messages and prepare outgoing messages.

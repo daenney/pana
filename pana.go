@@ -3,7 +3,7 @@ package pana
 import (
 	"unsafe"
 
-	ld "code.dny.dev/longdistance"
+	ld "sourcery.dny.nu/longdistance"
 )
 
 // Has checks if an object has a specific property set.

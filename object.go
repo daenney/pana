@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"iter"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/vocab/ostatus"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/vocab/ostatus"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Object is the ActivityStreams Object type.

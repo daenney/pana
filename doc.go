@@ -72,14 +72,14 @@
 // you're retrieving. However, remember that this is not enforced, so even if a
 // property is defined as a number it can hold a boolean.
 //
-// All types in Pana are a [code.dny.dev/longdistance.Node]. This struct type
+// All types in Pana are a [sourcery.dny.nu/longdistance.Node]. This struct type
 // has exported fields for every JSON-LD keyword, as well as a catch-all
 // Properties field for all other properties. You can directly manipulate any of
 // these, but at that point you're responsible for ensuring you create valid
 // JSON-LD nodes that will compact to a representation non-JSON-LD aware
 // processors will understand. In order to Get, Add or Set properties you need
 // to use the IRI a property maps to. This is part of what the JSON-LD context
-// defines. The [code.dny.dev/pana/vocab] packages provide the necessary consts.
+// defines. The [sourcery.dny.nu/pana/vocab] packages provide the necessary consts.
 //
 // [ActivityStreams]: https://www.w3.org/TR/activitystreams-core/
 // [ActivityPub]: https://www.w3.org/TR/activitypub/

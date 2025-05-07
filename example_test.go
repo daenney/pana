@@ -8,9 +8,9 @@ import (
 	"maps"
 	"slices"
 
-	"code.dny.dev/pana"
-	"code.dny.dev/pana/vocab/mastodon"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana"
+	"sourcery.dny.nu/pana/vocab/mastodon"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 func ExampleProcessor_Marshal() {

@@ -3,7 +3,7 @@ package pana
 import (
 	"encoding/json"
 
-	ld "code.dny.dev/longdistance"
+	ld "sourcery.dny.nu/longdistance"
 )
 
 // Localised represents a value with an optional language tag and direction.

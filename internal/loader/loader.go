@@ -7,15 +7,15 @@ import (
 	"strings"
 	"sync"
 
-	ld "code.dny.dev/longdistance"
-	"code.dny.dev/pana/internal/json"
-	"code.dny.dev/pana/vocab/geojson"
-	gts "code.dny.dev/pana/vocab/gotosocial"
-	"code.dny.dev/pana/vocab/litepub"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
-	credv1 "code.dny.dev/pana/vocab/w3id/credentialsv1"
-	idv1 "code.dny.dev/pana/vocab/w3id/identityv1"
-	secv1 "code.dny.dev/pana/vocab/w3id/securityv1"
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/vocab/geojson"
+	gts "sourcery.dny.nu/pana/vocab/gotosocial"
+	"sourcery.dny.nu/pana/vocab/litepub"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	credv1 "sourcery.dny.nu/pana/vocab/w3id/credentialsv1"
+	idv1 "sourcery.dny.nu/pana/vocab/w3id/identityv1"
+	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
 
 // Builtin is a remote context cache.

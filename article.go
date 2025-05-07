@@ -1,8 +1,8 @@
 package pana
 
 import (
-	ld "code.dny.dev/longdistance"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Article is the ActivityStreams Article type.

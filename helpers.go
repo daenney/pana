@@ -1,6 +1,6 @@
 package pana
 
-import ld "code.dny.dev/longdistance"
+import ld "sourcery.dny.nu/longdistance"
 
 func toReference(ids ...string) []ld.Node {
 	if len(ids) == 0 {

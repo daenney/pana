@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"iter"
 
-	ld "code.dny.dev/longdistance"
-	as "code.dny.dev/pana/vocab/w3/activitystreams"
+	ld "sourcery.dny.nu/longdistance"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 // Audio is the ActivityStreams Audio type.
