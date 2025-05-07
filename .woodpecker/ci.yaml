@@ -8,4 +8,4 @@ steps:
     image: golang:1.24
     pull: true
     commands:
-      - go test -v code.dny.dev/pana
+      - go test -v sourcery.dny.nu/pana
