@@ -42,8 +42,22 @@ func (l *Localised) GetValue() json.RawMessage {
 	return l.Value
 }
 
-// SetValue sets the value.
-func (l *Localised) SetValue(value json.RawMessage) *Localised {
+// SetValue sets the strings as the value.
+//
+// The string must be valid UTF-8. This will always be the case unless the
+// string was directly constructed from a []byte. Use
+// [unicode/utf8.ValidString] to check for that if necessary.
+func (l *Localised) SetValue(value string) *Localised {
+	data, _ := json.Marshal(value)
+	l.Value = data
+	return l
+}
+
+// SetValueRaw sets the value.
+//
+// The value must be a valid UTF-8 byte sequence. Use [unicode/utf8.Valid] to
+// check for that if necessary.
+func (l *Localised) SetValueRaw(value json.RawMessage) *Localised {
 	l.Value = value
 	return l
 }

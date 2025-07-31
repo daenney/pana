@@ -32,10 +32,6 @@ func (l *Link) Build() Link {
 //
 // This will most commonly be one of:
 //   - [as.TypeLink]
-//   - [as.TypeDocument]
-//   - [as.TypeImage]
-//   - [as.TypeAudio]
-//   - [as.TypeVideo]
 //   - [as.TypeMention]
 //   - [as.TypeHashtag]
 //
@@ -92,8 +88,15 @@ func (l *Link) GetHreflang() json.RawMessage {
 	return nil
 }
 
-// SetHreflang sets a value in [as.Hreflang].
-func (l *Link) SetHreflang(hreflang json.RawMessage) *Link {
+// SetHreflang sets the string in [as.Hreflang].
+func (l *Link) SetHreflang(hreflang string) *Link {
+	data, _ := json.Marshal(hreflang)
+	(*ld.Node)(l).SetNodes(as.Hreflang, ld.Node{Value: data})
+	return l
+}
+
+// SetHreflangRaw sets a value in [as.Hreflang].
+func (l *Link) SetHreflanRaw(hreflang json.RawMessage) *Link {
 	(*ld.Node)(l).SetNodes(as.Hreflang, ld.Node{Value: hreflang})
 	return l
 }
@@ -106,8 +109,15 @@ func (l *Link) GetMediaType() json.RawMessage {
 	return nil
 }
 
-// SetMediaType sets a value in [as.MediaType].
-func (l *Link) SetMediaType(mediaType json.RawMessage) *Link {
+// SetMediaType sets a string in [as.MediaType].
+func (l *Link) SetMediaType(mediaType string) *Link {
+	data, _ := json.Marshal(mediaType)
+	(*ld.Node)(l).SetNodes(as.MediaType, ld.Node{Value: data})
+	return l
+}
+
+// SetMediaTypeRaw sets a value in [as.MediaType].
+func (l *Link) SetMediaTypeRaw(mediaType json.RawMessage) *Link {
 	(*ld.Node)(l).SetNodes(as.MediaType, ld.Node{Value: mediaType})
 	return l
 }
@@ -120,8 +130,15 @@ func (l *Link) GetRel() json.RawMessage {
 	return nil
 }
 
-// SetRel sets a value in [as.Rel].
-func (l *Link) SetRel(rel json.RawMessage) *Link {
+// SetRel sets a string in [as.Rel].
+func (l *Link) SetRel(rel string) *Link {
+	data, _ := json.Marshal(rel)
+	(*ld.Node)(l).SetNodes(as.Rel, ld.Node{Value: data})
+	return l
+}
+
+// SetRelRaw sets a value in [as.Rel].
+func (l *Link) SetRelRaw(rel json.RawMessage) *Link {
 	(*ld.Node)(l).SetNodes(as.Rel, ld.Node{Value: rel})
 	return l
 }
@@ -134,8 +151,15 @@ func (l *Link) GetHeight() json.RawMessage {
 	return nil
 }
 
-// SetHeight sets a value in [as.Height].
-func (l *Link) SetHeight(height json.RawMessage) *Link {
+// SetHeight sets the height in [as.Height].
+func (l *Link) SetHeight(height uint64) *Link {
+	data, _ := json.Marshal(height)
+	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
+	return l
+}
+
+// SetHeightRaw sets a value in [as.Height].
+func (l *Link) SetHeightRaw(height json.RawMessage) *Link {
 	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: height, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
@@ -148,8 +172,15 @@ func (l *Link) GetWidth() json.RawMessage {
 	return nil
 }
 
-// SetWidth sets a value in [as.Width].
-func (l *Link) SetWidth(width json.RawMessage) *Link {
+// SetWidth sets the width in [as.Width].
+func (l *Link) SetWidth(width uint64) *Link {
+	data, _ := json.Marshal(width)
+	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
+	return l
+}
+
+// SetWidthRaw sets a value in [as.Width].
+func (l *Link) SetWidthRaw(width json.RawMessage) *Link {
 	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: width, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }

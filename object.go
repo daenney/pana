@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/ostatus"
@@ -156,8 +157,15 @@ func (o *Object) GetPublished() json.RawMessage {
 	return nil
 }
 
-// SetPublished sets the value in [as.Published].
-func (o *Object) SetPublished(value json.RawMessage) *Object {
+// SetPublished sets a [time.Time] in [as.Published].
+func (o *Object) SetPublished(dt time.Time) *Object {
+	data, _ := json.Marshal(dt.Format(time.RFC3339))
+	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// SetPublishedRaw sets the value in [as.Published].
+func (o *Object) SetPublishedRaw(value json.RawMessage) *Object {
 	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: value, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
@@ -342,8 +350,15 @@ func (o *Object) GetSensitive() json.RawMessage {
 	return nil
 }
 
-// SetSensitive sets the value in [as.Sensitive].
-func (o *Object) SetSensitive(v json.RawMessage) *Object {
+// SetSensitive sets the boolean in [as.Sensitive].
+func (o *Object) SetSensitive(v bool) *Object {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: data, Type: []string{xmlschema.TypeBoolean}})
+	return o
+}
+
+// SetSensitiveRaw sets the value in [as.Sensitive].
+func (o *Object) SetSensitiveRaw(v json.RawMessage) *Object {
 	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: v})
 	return o
 }
@@ -374,8 +389,15 @@ func (o *Object) GetUpdated() json.RawMessage {
 	return nil
 }
 
-// SetUpdated sets the value in [as.Updated].
-func (o *Object) SetUpdated(v json.RawMessage) *Object {
+// SetUpdated sets the [time.Time] in [as.Updated].
+func (o *Object) SetUpdated(v time.Time) *Object {
+	data, _ := json.Marshal(v.Format(time.RFC3339))
+	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// SetUpdatedRaw sets the value in [as.Updated].
+func (o *Object) SetUpdatedRaw(v json.RawMessage) *Object {
 	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }

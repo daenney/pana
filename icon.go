@@ -39,9 +39,15 @@ func (i *Icon) GetMediaType() json.RawMessage {
 	return (*Image)(i).GetMediaType()
 }
 
-// SetMediaType sets the value in [as.MediaType].
-func (i *Icon) SetMediaType(v json.RawMessage) *Icon {
+// SetMediaType sets the string in [as.MediaType].
+func (i *Icon) SetMediaType(v string) *Icon {
 	(*Image)(i).SetMediaType(v)
+	return i
+}
+
+// SetMediaTypeRaw sets the value in [as.MediaType].
+func (i *Icon) SetMediaTypeRaw(v json.RawMessage) *Icon {
+	(*Image)(i).SetMediaTypeRaw(v)
 	return i
 }
 

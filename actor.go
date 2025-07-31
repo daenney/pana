@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
@@ -82,8 +83,15 @@ func (a *Actor) GetMemorial() json.RawMessage {
 	return json.RawMessage(`false`)
 }
 
-// SetMemorial sets the value in [mastodon.Memorial].
-func (a *Actor) SetMemorial(v json.RawMessage) *Actor {
+// SetMemorial sets the boolean in [mastodon.Memorial].
+func (a *Actor) SetMemorial(v bool) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(mastodon.Memorial, ld.Node{Value: data})
+	return a
+}
+
+// SetMemorialRaw sets the value in [mastodon.Memorial].
+func (a *Actor) SetMemorialRaw(v json.RawMessage) *Actor {
 	(*ld.Node)(a).SetNodes(mastodon.Memorial, ld.Node{Value: v})
 	return a
 }
@@ -148,7 +156,14 @@ func (a *Actor) GetDiscoverable() json.RawMessage {
 }
 
 // SetDiscoverable sets the value in [mastodon.Discoverable].
-func (a *Actor) SetDiscoverable(v json.RawMessage) *Actor {
+func (a *Actor) SetDiscoverable(v bool) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(mastodon.Discoverable, ld.Node{Value: data})
+	return a
+}
+
+// SetDiscoverableRaw sets the value in [mastodon.Discoverable].
+func (a *Actor) SetDiscoverableRaw(v json.RawMessage) *Actor {
 	(*ld.Node)(a).SetNodes(mastodon.Discoverable, ld.Node{Value: v})
 	return a
 }
@@ -297,8 +312,15 @@ func (a *Actor) GetIndexable() json.RawMessage {
 	return json.RawMessage(`false`)
 }
 
-// SetIndexable sets the value in [mastodon.Indexable].
-func (a *Actor) SetIndexable(v json.RawMessage) *Actor {
+// SetIndexable sets the boolean in [mastodon.Indexable].
+func (a *Actor) SetIndexable(v bool) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(mastodon.Indexable, ld.Node{Value: data})
+	return a
+}
+
+// SetIndexableRaw sets the value in [mastodon.Indexable].
+func (a *Actor) SetIndexableRaw(v json.RawMessage) *Actor {
 	(*ld.Node)(a).SetNodes(mastodon.Indexable, ld.Node{Value: v})
 	return a
 }
@@ -315,9 +337,17 @@ func (a *Actor) GetManuallyApprovesFollowers() json.RawMessage {
 	return json.RawMessage(`false`)
 }
 
-// SetManuallyApprovesFollowers sets the value in
+// SetManuallyApprovesFollowers sets the boolean in
 // [as.ManuallyApprovesFollowers].
-func (a *Actor) SetManuallyApprovesFollowers(v json.RawMessage) *Actor {
+func (a *Actor) SetManuallyApprovesFollowers(v bool) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(as.ManuallyApprovesFollowers, ld.Node{Value: data})
+	return a
+}
+
+// SetManuallyApprovesFollowersRaw sets the value in
+// [as.ManuallyApprovesFollowers].
+func (a *Actor) SetManuallyApprovesFollowersRaw(v json.RawMessage) *Actor {
 	(*ld.Node)(a).SetNodes(as.ManuallyApprovesFollowers, ld.Node{Value: v})
 	return a
 }
@@ -350,8 +380,15 @@ func (a *Actor) GetPreferredUsername() json.RawMessage {
 	return nil
 }
 
-// SetPreferredUsername sets the value in [as.PreferredUsername].
-func (a *Actor) SetPreferredUsername(v json.RawMessage) *Actor {
+// SetPreferredUsername sets the string in [as.PreferredUsername].
+func (a *Actor) SetPreferredUsername(v string) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(as.PreferredUsername, ld.Node{Value: data})
+	return a
+}
+
+// SetPreferredUsernameRaw sets the value in [as.PreferredUsername].
+func (a *Actor) SetPreferredUsernameRaw(v json.RawMessage) *Actor {
 	(*ld.Node)(a).SetNodes(as.PreferredUsername, ld.Node{Value: v})
 	return a
 }
@@ -362,8 +399,14 @@ func (a *Actor) GetPublished() json.RawMessage {
 }
 
 // See [Object.SetPublished].
-func (a *Actor) SetPublished(v json.RawMessage) *Actor {
+func (a *Actor) SetPublished(v time.Time) *Actor {
 	(*Object)(a).SetPublished(v)
+	return a
+}
+
+// See [Object.SetPublishedRaw].
+func (a *Actor) SetPublishedRaw(v json.RawMessage) *Actor {
+	(*Object)(a).SetPublishedRaw(v)
 	return a
 }
 

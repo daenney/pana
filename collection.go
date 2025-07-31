@@ -5,6 +5,7 @@ import (
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Collection is the ActivityStreams Collection type.
@@ -75,8 +76,15 @@ func (c *Collection) GetTotalItems() json.RawMessage {
 }
 
 // SetTotalItems sets the value in [as.TotalItems].
-func (c *Collection) SetTotalItems(v json.RawMessage) *Collection {
-	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: v})
+func (c *Collection) SetTotalItems(v uint) *Collection {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
+	return c
+}
+
+// SetTotalItemsRaw sets the value in [as.TotalItems].
+func (c *Collection) SetTotalItemsRaw(v json.RawMessage) *Collection {
+	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return c
 }
 

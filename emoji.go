@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
@@ -66,8 +67,14 @@ func (e *Emoji) GetUpdated() json.RawMessage {
 }
 
 // See [Object.SetUpdated].
-func (e *Emoji) SetUpdated(v json.RawMessage) *Emoji {
+func (e *Emoji) SetUpdated(v time.Time) *Emoji {
 	(*Object)(e).SetUpdated(v)
+	return e
+}
+
+// See [Object.SetUpdatedRaw].
+func (e *Emoji) SetUpdatedRaw(v json.RawMessage) *Emoji {
+	(*Object)(e).SetUpdatedRaw(v)
 	return e
 }
 

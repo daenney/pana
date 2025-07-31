@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/litepub"
@@ -147,8 +148,15 @@ func (n *Note) GetDirectMessage() json.RawMessage {
 	return json.RawMessage(`false`)
 }
 
-// SetDirectMessage sets the value in [litepub.DirectMessage].
-func (n *Note) SetDirectMessage(v json.RawMessage) *Note {
+// SetDirectMessage sets a boolean in [litepub.DirectMessage].
+func (n *Note) SetDirectMessage(v bool) *Note {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(n).SetNodes(litepub.DirectMessage, ld.Node{Value: data})
+	return n
+}
+
+// SetDirectMessageRaw sets the value in [litepub.DirectMessage].
+func (n *Note) SetDirectMessageRaw(v json.RawMessage) *Note {
 	(*ld.Node)(n).SetNodes(litepub.DirectMessage, ld.Node{Value: v})
 	return n
 }
@@ -192,8 +200,14 @@ func (n *Note) GetPublished() json.RawMessage {
 }
 
 // See [Object.SetPublished].
-func (n *Note) SetPublished(v json.RawMessage) *Note {
+func (n *Note) SetPublished(v time.Time) *Note {
 	(*Object)(n).SetPublished(v)
+	return n
+}
+
+// See [Object.SetPublishedRaw].
+func (n *Note) SetPublishedRaw(v json.RawMessage) *Note {
+	(*Object)(n).SetPublishedRaw(v)
 	return n
 }
 
@@ -214,8 +228,14 @@ func (n *Note) GetSensitive() json.RawMessage {
 }
 
 // See [Object.SetSensitive].
-func (n *Note) SetSensitive(v json.RawMessage) *Note {
+func (n *Note) SetSensitive(v bool) *Note {
 	(*Object)(n).SetSensitive(v)
+	return n
+}
+
+// See [Object.SetSensitiveRaw].
+func (n *Note) SetSensitiveRaw(v json.RawMessage) *Note {
+	(*Object)(n).SetSensitiveRaw(v)
 	return n
 }
 
@@ -269,8 +289,14 @@ func (n *Note) GetUpdated() json.RawMessage {
 }
 
 // See [Object.SetUpdated].
-func (n *Note) SetUpdated(v json.RawMessage) *Note {
+func (n *Note) SetUpdated(v time.Time) *Note {
 	(*Object)(n).SetUpdated(v)
+	return n
+}
+
+// See [Object.SetUpdatedRaw].
+func (n *Note) SetUpdatedRaw(v json.RawMessage) *Note {
+	(*Object)(n).SetUpdatedRaw(v)
 	return n
 }
 

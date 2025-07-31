@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
@@ -58,8 +59,15 @@ func (q *Question) GetVotersCount() json.RawMessage {
 	return nil
 }
 
-// SetVotersCount sets the value in [mastodon.VotersCount].
-func (q *Question) SetVotersCount(v json.RawMessage) *Question {
+// SetVotersCount sets the number in [mastodon.VotersCount].
+func (q *Question) SetVotersCount(v uint64) *Question {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(q).SetNodes(mastodon.VotersCount, ld.Node{Value: data})
+	return q
+}
+
+// SetVotersCountRaw sets the value in [mastodon.VotersCount].
+func (q *Question) SetVotersCountRaw(v json.RawMessage) *Question {
 	(*ld.Node)(q).SetNodes(mastodon.VotersCount, ld.Node{Value: v})
 	return q
 }
@@ -75,8 +83,15 @@ func (q *Question) GetEndTime() json.RawMessage {
 	return nil
 }
 
-// SetEndTime sets the value in [as.EndTime].
-func (q *Question) SetEndTime(v json.RawMessage) *Question {
+// SetEndTime sets the [time.Time] in [as.EndTime].
+func (q *Question) SetEndTime(v time.Time) *Question {
+	data, _ := json.Marshal(v.Format(time.RFC3339))
+	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return q
+}
+
+// SetEndTimeRaw sets the value in [as.EndTime].
+func (q *Question) SetEndTimeRaw(v json.RawMessage) *Question {
 	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }
@@ -87,8 +102,14 @@ func (q *Question) GetSensitive() json.RawMessage {
 }
 
 // See [Object.SetSensitive].
-func (q *Question) SetSensitive(v json.RawMessage) *Question {
+func (q *Question) SetSensitive(v bool) *Question {
 	(*Object)(q).SetSensitive(v)
+	return q
+}
+
+// See [Object.SetSensitiveRaw].
+func (q *Question) SetSensitiveRaw(v json.RawMessage) *Question {
+	(*Object)(q).SetSensitiveRaw(v)
 	return q
 }
 
@@ -98,8 +119,14 @@ func (q *Question) GetUpdated() json.RawMessage {
 }
 
 // See [Object.SetUpdated].
-func (q *Question) SetUpdated(v json.RawMessage) *Question {
+func (q *Question) SetUpdated(v time.Time) *Question {
 	(*Object)(q).SetUpdated(v)
+	return q
+}
+
+// See [Object.SetUpdatedRaw].
+func (q *Question) SetUpdatedRaw(v json.RawMessage) *Question {
+	(*Object)(q).SetUpdatedRaw(v)
 	return q
 }
 
@@ -152,8 +179,15 @@ func (q *Question) GetClosed() json.RawMessage {
 	return nil
 }
 
-// SetClosed sets the value in [as.Closed].
-func (q *Question) SetClosed(v json.RawMessage) *Question {
+// SetClosed sets the [time.Time] in [as.Closed].
+func (q *Question) SetClosed(v time.Time) *Question {
+	data, _ := json.Marshal(v.Format(time.RFC3339))
+	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return q
+}
+
+// SetClosedRawsets the value in [as.Closed].
+func (q *Question) SetClosedRaw(v json.RawMessage) *Question {
 	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }

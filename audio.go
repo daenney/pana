@@ -6,7 +6,6 @@ import (
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
-	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Audio is the ActivityStreams Audio type.
@@ -40,31 +39,31 @@ func (a *Audio) SetType(typ string) *Audio {
 
 // GetDuration returns the value in [as.Duration].
 func (a *Audio) GetDuration() json.RawMessage {
-	if nodes := (*ld.Node)(a).GetNodes(as.Duration); len(nodes) == 1 {
-		return nodes[0].Value
-	}
-
-	return nil
+	return (*Document)(a).GetDuration()
 }
 
 // SetDuration sets the value in [as.Duration].
+//
+// See [Document.SetDuration] for the format.
 func (a *Audio) SetDuration(v json.RawMessage) *Audio {
-	(*ld.Node)(a).SetNodes(as.Duration, ld.Node{Value: v, Type: []string{xmlschema.TypeDuration}})
+	(*Document)(a).SetDuration(v)
 	return a
 }
 
 // GetMediaType returns the value in [as.MediaType].
 func (a *Audio) GetMediaType() json.RawMessage {
-	if nodes := (*ld.Node)(a).GetNodes(as.MediaType); len(nodes) == 1 {
-		return nodes[0].Value
-	}
-
-	return nil
+	return (*Document)(a).GetMediaType()
 }
 
-// SetMediaType sets the value in [as.MediaType].
-func (a *Audio) SetMediaType(v json.RawMessage) *Audio {
-	(*ld.Node)(a).SetNodes(as.MediaType, ld.Node{Value: v})
+// SetMediaType sets the string in [as.MediaType].
+func (a *Audio) SetMediaType(v string) *Audio {
+	(*Document)(a).SetMediaType(v)
+	return a
+}
+
+// SetMediaTypeRaw sets the value in [as.MediaType].
+func (a *Audio) SetMediaTypeRaw(v json.RawMessage) *Audio {
+	(*Document)(a).SetMediaTypeRaw(v)
 	return a
 }
 

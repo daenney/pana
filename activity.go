@@ -3,6 +3,7 @@ package pana
 import (
 	"encoding/json"
 	"iter"
+	"time"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/litepub"
@@ -262,7 +263,13 @@ func (a *Activity) GetPublished() json.RawMessage {
 }
 
 // See [Object.SetPublished].
-func (a *Activity) SetPublished(v json.RawMessage) *Activity {
+func (a *Activity) SetPublished(v time.Time) *Activity {
 	(*Object)(a).SetPublished(v)
+	return a
+}
+
+// See [Object.SetPublishedRaw].
+func (a *Activity) SetPublishedRaw(v json.RawMessage) *Activity {
+	(*Object)(a).SetPublishedRaw(v)
 	return a
 }

@@ -64,6 +64,9 @@ func (d *Document) GetDuration() json.RawMessage {
 }
 
 // SetDuration sets the value in [as.Duration].
+//
+// This value is the XML duration format, which cannot currently be serialised
+// from a [time.Duration]. See https://github.com/golang/go/issues/71631.
 func (d *Document) SetDuration(v json.RawMessage) *Document {
 	(*ld.Node)(d).SetNodes(as.Duration, ld.Node{Value: v, Type: []string{xmlschema.TypeDuration}})
 	return d
@@ -80,8 +83,18 @@ func (d *Document) GetFocalPoint() []json.RawMessage {
 	return nil
 }
 
-// SetFocalPoint sets the value in [mastodon.FocalPoint].
-func (d *Document) SetFocalPoint(x, y json.RawMessage) *Document {
+// SetFocalPoint sets the X and Y coordinates in [mastodon.FocalPoint].
+func (d *Document) SetFocalPoint(x, y float32) *Document {
+	dx, _ := json.Marshal(x)
+	dy, _ := json.Marshal(y)
+	(*ld.Node)(d).SetNodes(mastodon.FocalPoint, ld.Node{
+		List: []ld.Node{{Value: dx}, {Value: dy}},
+	})
+	return d
+}
+
+// SetFocalPointRaw sets the value in [mastodon.FocalPoint].
+func (d *Document) SetFocalPointRaw(x, y json.RawMessage) *Document {
 	(*ld.Node)(d).SetNodes(mastodon.FocalPoint, ld.Node{
 		List: []ld.Node{{Value: x}, {Value: y}},
 	})
@@ -97,8 +110,15 @@ func (d *Document) GetHeight() json.RawMessage {
 	return nil
 }
 
-// SetHeight sets the value in [as.Height].
-func (d *Document) SetHeight(v json.RawMessage) *Document {
+// SetHeight sets the height in [as.Height].
+func (d *Document) SetHeight(v uint64) *Document {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
+	return d
+}
+
+// SetHeightRaw sets the value in [as.Height].
+func (d *Document) SetHeightRaw(v json.RawMessage) *Document {
 	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }
@@ -112,8 +132,15 @@ func (d *Document) GetMediaType() json.RawMessage {
 	return nil
 }
 
-// SetMediaType sets the value in [as.MediaType].
-func (d *Document) SetMediaType(v json.RawMessage) *Document {
+// SetMediaType sets the string in [as.MediaType].
+func (d *Document) SetMediaType(v string) *Document {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(d).SetNodes(as.MediaType, ld.Node{Value: data})
+	return d
+}
+
+// SetMediaTypeRaw sets the value in [as.MediaType].
+func (d *Document) SetMediaTypeRaw(v json.RawMessage) *Document {
 	(*ld.Node)(d).SetNodes(as.MediaType, ld.Node{Value: v})
 	return d
 }
@@ -138,8 +165,15 @@ func (d *Document) GetWidth() json.RawMessage {
 	return nil
 }
 
-// SetWidth sets the value in [as.Width].
-func (d *Document) SetWidth(v json.RawMessage) *Document {
+// SetWidth sets the width in [as.Width].
+func (d *Document) SetWidth(v uint64) *Document {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
+	return d
+}
+
+// SetWidthRaw sets the value in [as.Width].
+func (d *Document) SetWidthRaw(v json.RawMessage) *Document {
 	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }

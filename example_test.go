@@ -23,17 +23,17 @@ func ExampleProcessor_Marshal() {
 			pana.NewNote().
 				AddContent(
 					pana.NewLocalised().
-						SetValue([]byte(`"We spell color wrong."`)).
+						SetValue("We spell color wrong.").
 						SetLanguage("en-us").
 						Build(),
 				).
 				AddContent(
 					pana.NewLocalised().
-						SetValue([]byte(`"Omelette du fromage."`)).
+						SetValue("Omelette du fromage.").
 						SetLanguage("fr-FR").
 						Build(),
 					pana.NewLocalised().
-						SetValue([]byte(`"Ona li toki."`)).
+						SetValue("Ona li toki.").
 						Build(),
 				).
 				Build()).
