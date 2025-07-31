@@ -6,11 +6,12 @@ import (
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Audio is the ActivityStreams Audio type.
 //
-// It is a [Document] without width/height but with duration.
+// It is a [Document] without width/height.
 type Audio Document
 
 // NewAudio initialises a new Audio.
@@ -48,7 +49,7 @@ func (a *Audio) GetDuration() json.RawMessage {
 
 // SetDuration sets the value in [as.Duration].
 func (a *Audio) SetDuration(v json.RawMessage) *Audio {
-	(*ld.Node)(a).SetNodes(as.Duration, ld.Node{Value: v})
+	(*ld.Node)(a).SetNodes(as.Duration, ld.Node{Value: v, Type: []string{xmlschema.TypeDuration}})
 	return a
 }
 

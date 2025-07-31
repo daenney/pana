@@ -7,6 +7,7 @@ import (
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Question is the ActivityStreams Question object.
@@ -76,7 +77,7 @@ func (q *Question) GetEndTime() json.RawMessage {
 
 // SetEndTime sets the value in [as.EndTime].
 func (q *Question) SetEndTime(v json.RawMessage) *Question {
-	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: v})
+	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }
 
@@ -153,7 +154,7 @@ func (q *Question) GetClosed() json.RawMessage {
 
 // SetClosed sets the value in [as.Closed].
 func (q *Question) SetClosed(v json.RawMessage) *Question {
-	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: v})
+	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }
 

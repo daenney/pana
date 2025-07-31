@@ -7,6 +7,7 @@ import (
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/ostatus"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Object is the ActivityStreams Object type.
@@ -157,7 +158,7 @@ func (o *Object) GetPublished() json.RawMessage {
 
 // SetPublished sets the value in [as.Published].
 func (o *Object) SetPublished(value json.RawMessage) *Object {
-	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: value})
+	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: value, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
 
@@ -375,7 +376,7 @@ func (o *Object) GetUpdated() json.RawMessage {
 
 // SetUpdated sets the value in [as.Updated].
 func (o *Object) SetUpdated(v json.RawMessage) *Object {
-	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: v})
+	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
 

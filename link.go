@@ -6,6 +6,7 @@ import (
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Link is the ActivityStreams Link type.
@@ -135,7 +136,7 @@ func (l *Link) GetHeight() json.RawMessage {
 
 // SetHeight sets a value in [as.Height].
 func (l *Link) SetHeight(height json.RawMessage) *Link {
-	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: height})
+	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: height, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
 
@@ -149,7 +150,7 @@ func (l *Link) GetWidth() json.RawMessage {
 
 // SetWidth sets a value in [as.Width].
 func (l *Link) SetWidth(width json.RawMessage) *Link {
-	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: width})
+	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: width, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
 

@@ -7,6 +7,7 @@ import (
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 // Document is the ActivityStreams Document type.
@@ -64,7 +65,7 @@ func (d *Document) GetDuration() json.RawMessage {
 
 // SetDuration sets the value in [as.Duration].
 func (d *Document) SetDuration(v json.RawMessage) *Document {
-	(*ld.Node)(d).SetNodes(as.Duration, ld.Node{Value: v})
+	(*ld.Node)(d).SetNodes(as.Duration, ld.Node{Value: v, Type: []string{xmlschema.TypeDuration}})
 	return d
 }
 
@@ -98,7 +99,7 @@ func (d *Document) GetHeight() json.RawMessage {
 
 // SetHeight sets the value in [as.Height].
 func (d *Document) SetHeight(v json.RawMessage) *Document {
-	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: v})
+	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }
 
@@ -139,7 +140,7 @@ func (d *Document) GetWidth() json.RawMessage {
 
 // SetWidth sets the value in [as.Width].
 func (d *Document) SetWidth(v json.RawMessage) *Document {
-	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: v})
+	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }
 
