@@ -38,6 +38,17 @@ func (a *Actor) Build() Any {
 	return Any(*a)
 }
 
+// See [Object.GetID].
+func (a *Actor) GetID() string {
+	return (*Object)(a).GetID()
+}
+
+// See [Object.SetID].
+func (a *Actor) SetID(id string) *Actor {
+	(*Object)(a).SetID(id)
+	return a
+}
+
 // See [Object.GetType].
 func (a *Actor) GetType() string {
 	return (*Object)(a).GetType()
@@ -142,88 +153,88 @@ func (a *Actor) SetDiscoverable(v json.RawMessage) *Actor {
 	return a
 }
 
-// GetFeatured returns the [Collection] stored in [mastodon.Featured].
+// GetFeatured returns the URL stored in [mastodon.Featured].
 //
 // See https://docs.joinmastodon.org/spec/activitypub/#toot.
-func (a *Actor) GetFeatured() *Collection {
+func (a *Actor) GetFeatured() string {
 	if nodes := (*ld.Node)(a).GetNodes(mastodon.Featured); len(nodes) == 1 {
-		return (*Collection)(&nodes[0])
+		return nodes[0].ID
 	}
 
-	return nil
+	return ""
 }
 
-// SetFeatured sets the [Collection] in [mastodon.Featured].
-func (a *Actor) SetFeatured(c Collection) *Actor {
-	(*ld.Node)(a).SetNodes(mastodon.Featured, ld.Node(c))
+// SetFeatured sets the URL in [mastodon.Featured].
+func (a *Actor) SetFeatured(url string) *Actor {
+	(*ld.Node)(a).SetNodes(mastodon.Featured, ld.Node{ID: url})
 	return a
 }
 
-// GetFeaturedTags returns the [Collection] stored in [mastodon.FeaturedTags].
+// GetFeaturedTags returns the URL stored in [mastodon.FeaturedTags].
 //
 // See https://docs.joinmastodon.org/spec/activitypub/#toot.
-func (a *Actor) GetFeaturedTags() *Collection {
+func (a *Actor) GetFeaturedTags() string {
 	if nodes := (*ld.Node)(a).GetNodes(mastodon.FeaturedTags); len(nodes) == 1 {
-		return (*Collection)(&nodes[0])
+		return nodes[0].ID
 	}
 
-	return nil
+	return ""
 }
 
-// SetFeaturedTags sets the [Collection] in [mastodon.FeaturedTags].
-func (a *Actor) SetFeaturedTags(c Collection) *Actor {
-	(*ld.Node)(a).SetNodes(mastodon.FeaturedTags, ld.Node(c))
+// SetFeaturedTags sets the URL in [mastodon.FeaturedTags].
+func (a *Actor) SetFeaturedTags(url string) *Actor {
+	(*ld.Node)(a).SetNodes(mastodon.FeaturedTags, ld.Node{ID: url})
 	return a
 }
 
-// GetFollowers returns the [Collection] stored in [as.Followers].
+// GetFollowers returns the URL stored in [as.Followers].
 //
 // See https://www.w3.org/TR/activitypub/#followers.
-func (a *Actor) GetFollowers() *Collection {
+func (a *Actor) GetFollowers() string {
 	if nodes := (*ld.Node)(a).GetNodes(as.Followers); len(nodes) == 1 {
-		return (*Collection)(&nodes[0])
+		return nodes[0].ID
 	}
 
-	return nil
+	return ""
 }
 
-// SetFollowers sets the [Collection] in [as.Followers].
-func (a *Actor) SetFollowers(c Collection) *Actor {
-	(*ld.Node)(a).SetNodes(as.Followers, ld.Node(c))
+// SetFollowers sets the URL in [as.Followers].
+func (a *Actor) SetFollowers(url string) *Actor {
+	(*ld.Node)(a).SetNodes(as.Followers, ld.Node{ID: url})
 	return a
 }
 
-// GetFollowing returns the [Collection] stored in [as.Following].
+// GetFollowing returns the URL stored in [as.Following].
 //
 // See https://www.w3.org/TR/activitypub/#following.
-func (a *Actor) GetFollowing() *Collection {
+func (a *Actor) GetFollowing() string {
 	if nodes := (*ld.Node)(a).GetNodes(as.Following); len(nodes) == 1 {
-		return (*Collection)(&nodes[0])
+		return nodes[0].ID
 	}
 
-	return nil
+	return ""
 }
 
-// SetFollowing sets the [Collection] in [as.Following].
-func (a *Actor) SetFollowing(c Collection) *Actor {
-	(*ld.Node)(a).SetNodes(as.Following, ld.Node(c))
+// SetFollowing sets the URL in [as.Following].
+func (a *Actor) SetFollowing(url string) *Actor {
+	(*ld.Node)(a).SetNodes(as.Following, ld.Node{ID: url})
 	return a
 }
 
-// GetLiked returns the [Collection] stored in [as.Liked].
+// GetLiked returns the URL stored in [as.Liked].
 //
 // See https://www.w3.org/TR/activitypub/#liked.
-func (a *Actor) GetLiked() *Collection {
+func (a *Actor) GetLiked() string {
 	if nodes := (*ld.Node)(a).GetNodes(as.Liked); len(nodes) == 1 {
-		return (*Collection)(&nodes[0])
+		return nodes[0].ID
 	}
 
-	return nil
+	return ""
 }
 
-// SetLiked sets the [Collection] in [as.Liked].
-func (a *Actor) SetLiked(c Collection) *Actor {
-	(*ld.Node)(a).SetNodes(as.Liked, ld.Node(c))
+// SetLiked sets the URL in [as.Liked].
+func (a *Actor) SetLiked(url string) *Actor {
+	(*ld.Node)(a).SetNodes(as.Liked, ld.Node{ID: url})
 	return a
 }
 
