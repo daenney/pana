@@ -126,8 +126,8 @@ func NewUpdate() *Update {
 }
 
 // Build finalises the Activity.
-func (a *Activity) Build() Activity {
-	return *a
+func (a *Activity) Build() Any {
+	return Any(*a)
 }
 
 // IsIntransitive returns true if the activity has no object.

@@ -46,7 +46,7 @@ func NewProcessor(
 	}
 }
 
-// Marshal takes an [Activity] and returns JSON-LD in compacted document form.
+// Marshal takes an [Any] and returns JSON-LD in compacted document form.
 //
 // This is the shape of JSON you want to exchange with other servers and
 // clients.
@@ -55,7 +55,7 @@ func NewProcessor(
 // that should be used for compaction.
 func (p *Processor) Marshal(
 	compactionContext json.RawMessage,
-	activity Activity,
+	object Any,
 ) (json.RawMessage, error) {
 	if compactionContext[0] == '{' {
 		ctx, err := json.GetContextDocument(compactionContext)
@@ -67,7 +67,7 @@ func (p *Processor) Marshal(
 
 	return p.ldproc.Compact(
 		compactionContext,
-		[]ld.Node{ld.Node(activity)},
+		[]ld.Node{ld.Node(object)},
 		"",
 	)
 }
@@ -81,7 +81,7 @@ func (p *Processor) Marshal(
 // error is raised so it doesn't go unnoticed.
 func (p *Processor) Unmarshal(
 	document json.RawMessage,
-) (*Activity, error) {
+) (*Any, error) {
 	res, err := p.ldproc.Expand(document, "")
 	if err != nil {
 		return nil, err
@@ -91,7 +91,7 @@ func (p *Processor) Unmarshal(
 		return nil, fmt.Errorf("expected a single document, got: %d", lres)
 	}
 
-	return (*Activity)(&res[0]), nil
+	return (*Any)(&res[0]), nil
 }
 
 // RegisterContextURL adds or overrides a context document for the specified

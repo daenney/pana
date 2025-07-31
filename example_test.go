@@ -172,14 +172,17 @@ func ExampleProcessor_Unmarshal() {
 	// what type of Activity did we just get?
 	fmt.Println("type:", activity.GetType())
 
+	// switch to being a create activity
+	cr := (*pana.Create)(activity)
+
 	// what properties are set on the Activity?
-	for _, property := range listProperties(pana.Properties(activity)) {
+	for _, property := range listProperties(pana.Properties(cr)) {
 		fmt.Println("property:", property)
 	}
 
 	fmt.Println("\n#----- Object -----#")
 	// what's our object?
-	obj := activity.GetObject()
+	obj := cr.GetObject()
 
 	// do we have a real object or a reference?
 	fmt.Println("object is a reference:", pana.IsReference(obj))
