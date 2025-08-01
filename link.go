@@ -196,6 +196,11 @@ func NewLinkTag() *LinkTag {
 	}
 }
 
+// Build finalises the LinkTag.
+func (l *LinkTag) Build() LinkTag {
+	return *l
+}
+
 // See [Link.GetType].
 func (l *LinkTag) GetType() string {
 	return (*Link)(l).GetType()

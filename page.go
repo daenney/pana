@@ -17,8 +17,6 @@ func NewPage() *Page {
 }
 
 // Build finalises the Page.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (p *Page) Build() Any {
-	return Any(*p)
+func (p *Page) Build() Page {
+	return *p
 }

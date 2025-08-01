@@ -17,8 +17,6 @@ func NewProfile() *Profile {
 }
 
 // Build finalises the Profile.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (p *Profile) Build() Any {
-	return Any(*p)
+func (p *Profile) Build() Profile {
+	return *p
 }

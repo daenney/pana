@@ -23,10 +23,8 @@ func NewObject() *Object {
 }
 
 // Build finalises the Object.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (o *Object) Build() Any {
-	return Any(*o)
+func (o *Object) Build() Object {
+	return *o
 }
 
 // GetID returns the object ID from [ld.Node.ID].

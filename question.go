@@ -23,10 +23,8 @@ func NewQuestion() *Question {
 }
 
 // Build finalises the Question.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (q *Question) Build() Any {
-	return Any(*q)
+func (q *Question) Build() Question {
+	return *q
 }
 
 // IsMultipleChoice checks if this is a multiple-choice question.

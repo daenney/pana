@@ -17,8 +17,6 @@ func NewArticle() *Article {
 }
 
 // Build finalises the Article.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (a *Article) Build() Any {
-	return Any(*a)
+func (a *Article) Build() Article {
+	return *a
 }

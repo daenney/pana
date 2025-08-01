@@ -33,10 +33,8 @@ func NewActor() *Actor {
 }
 
 // Build finalises the Actor.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (a *Actor) Build() Any {
-	return Any(*a)
+func (a *Actor) Build() Actor {
+	return *a
 }
 
 // See [Object.GetID].

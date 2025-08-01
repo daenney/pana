@@ -22,10 +22,8 @@ func NewNote() *Note {
 }
 
 // Build finalises the Note.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (n *Note) Build() Any {
-	return Any(*n)
+func (n *Note) Build() Note {
+	return *n
 }
 
 // See [Object.GetID].

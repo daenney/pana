@@ -17,8 +17,6 @@ func NewEvent() *Event {
 }
 
 // Build finalises the Event.
-//
-// This returns [Any] since that's what [Activity.SetObject] expects.
-func (e *Event) Build() Any {
-	return Any(*e)
+func (e *Event) Build() Event {
+	return *e
 }
