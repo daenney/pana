@@ -1,8 +1,15 @@
 // Package schema contains terms for the Schema.org namespace.
 package schema
 
+import (
+	"strings"
+)
+
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = "http://schema.org/"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "schema"
 
 const (
 	About             = Namespace + "about"
@@ -27,3 +34,20 @@ const (
 	URL               = Namespace + "url"
 	Value             = Namespace + "value"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) map[string]any {
+	term := Term(iri)
+
+	return map[string]any{
+		Prefix: Namespace,
+		term:   Prefix + ":" + term,
+	}
+}

@@ -2,6 +2,7 @@ package geojson
 
 import (
 	_ "embed"
+	"strings"
 )
 
 //go:embed context.jsonld
@@ -13,6 +14,9 @@ const IRI = "https://geojson.org/geojson-ld/geojson-context.jsonld"
 // Namespace is the IRI prefix used for terms defined in this context that don't
 // map to a different namespace.
 const Namespace = "https://purl.org/geojson/vocab#"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "geojson"
 
 const (
 	// Bbox is a string.
@@ -44,3 +48,15 @@ const (
 	// TypePolygon is a possible value for the type property.
 	TypePolygon = Namespace + "Polygon"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) string {
+	return IRI
+}

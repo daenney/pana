@@ -3,6 +3,7 @@ package credv1
 
 import (
 	_ "embed"
+	"strings"
 )
 
 //go:embed context.jsonld
@@ -13,6 +14,9 @@ const IRI = "https://w3id.org/credentials/v1"
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = "https://w3id.org/credentials#"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "cred"
 
 const (
 	// Claim is an IRI, either as a string or as an object with an
@@ -35,3 +39,15 @@ const (
 	// TypeCryptographicKeyCredential is a possible value for the type property.
 	TypeCryptographicKeyCredential = Namespace + "CryptographicKeyCredential"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) any {
+	return IRI
+}

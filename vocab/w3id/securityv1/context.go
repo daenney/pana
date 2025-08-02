@@ -3,6 +3,7 @@ package secv1
 
 import (
 	_ "embed"
+	"strings"
 )
 
 //go:embed context.jsonld
@@ -13,6 +14,9 @@ const IRI = "https://w3id.org/security/v1"
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = "https://w3id.org/security#"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "sec"
 
 const (
 	// AuthenticationTag is a string.
@@ -92,3 +96,15 @@ const (
 	// TypeLinkedDataSignature2016 is a possible value for the type property.
 	TypeLinkedDataSignature2016 = Namespace + "LinkedDataSignature2016"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) string {
+	return IRI
+}

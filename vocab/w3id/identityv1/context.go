@@ -3,6 +3,7 @@ package identityv1
 
 import (
 	_ "embed"
+	"strings"
 )
 
 //go:embed context.jsonld
@@ -14,6 +15,9 @@ const IRI = "https://w3id.org/identity/v1"
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = "https://w3id.org/identity#"
 
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "identity"
+
 const (
 	// IdentityService is an IRI, either as a string or as an object with an
 	// id property.
@@ -24,3 +28,15 @@ const (
 	// TypeIdentity is a possible value for the type property.
 	TypeIdentity = Namespace + "Identity"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) string {
+	return IRI
+}

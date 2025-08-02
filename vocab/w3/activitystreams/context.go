@@ -5,6 +5,10 @@ package activitystreams
 
 import (
 	_ "embed"
+	"strings"
+
+	ld "sourcery.dny.nu/longdistance"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 //go:embed context.jsonld
@@ -15,6 +19,9 @@ const IRI = "https://www.w3.org/ns/activitystreams"
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = IRI + "#"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "as"
 
 // From the normative context definition.
 const (
@@ -363,3 +370,35 @@ const (
 	// TypeHashtag is a possible value for the type property.
 	TypeHashtag = Namespace + "Hashtag"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) any {
+	term := Term(iri)
+	short := CompactIRI(iri)
+
+	switch iri {
+	case Sensitive:
+		return map[string]any{
+			ld.KeywordID:   short,
+			ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
+		}
+	case MovedTo:
+		return map[string]any{
+			ld.KeywordID:   short,
+			ld.KeywordType: ld.KeywordID,
+		}
+	case TypeHashtag, ManuallyApprovesFollowers:
+		return map[string]any{
+			term: short,
+		}
+	default:
+		return IRI
+	}
+}

@@ -52,11 +52,21 @@ func NewProcessor(
 // clients.
 //
 // The compaction context is a JSON document representing the JSON-LD context
-// that should be used for compaction.
+// that should be used for compaction. If the compaction context is not
+// provided, [Divinate] will be used to attempt and determine an appropriate
+// one.
 func (p *Processor) Marshal(
 	compactionContext json.RawMessage,
 	object Any,
 ) (json.RawMessage, error) {
+	if compactionContext == nil {
+		res, err := Divinate(ld.Node(object))
+		if err != nil {
+			return nil, fmt.Errorf("context divination failed: %w", err)
+		}
+		compactionContext = res
+	}
+
 	if compactionContext[0] == '{' {
 		ctx, err := json.GetContextDocument(compactionContext)
 		if err != nil {

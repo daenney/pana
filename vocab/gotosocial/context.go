@@ -3,6 +3,7 @@ package gotosocial
 
 import (
 	_ "embed"
+	"strings"
 )
 
 //go:embed context.jsonld
@@ -13,6 +14,9 @@ const IRI = "https://gotosocial.org/ns"
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = IRI + "#"
+
+// Prefix is the canonical shorthand for [Namespace].
+const Prefix = "gts"
 
 const (
 	// Always is an IRI, either as a string or as an object with an
@@ -43,3 +47,15 @@ const (
 	// TypeReplyApproval is a possible value for the type property.
 	TypeReplyApproval = Namespace + "ReplyApproval"
 )
+
+func CompactIRI(iri string) string {
+	return Prefix + `:` + Term(iri)
+}
+
+func Term(iri string) string {
+	return strings.TrimPrefix(iri, Namespace)
+}
+
+func TermDefForIRI(iri string) string {
+	return IRI
+}
