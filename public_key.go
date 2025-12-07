@@ -1,8 +1,6 @@
 package pana
 
 import (
-	"encoding/json"
-
 	ld "sourcery.dny.nu/longdistance"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
@@ -61,16 +59,16 @@ func (pk *PublicKey) SetOwner(id string) *PublicKey {
 }
 
 // GetPublicKeyPEM returns the value in [secv1.PublicKeyPem].
-func (pk *PublicKey) GetPublicKeyPEM() json.RawMessage {
+func (pk *PublicKey) GetPublicKeyPEM() string {
 	if nodes := (*ld.Node)(pk).GetNodes(secv1.PublicKeyPem); len(nodes) == 1 {
-		return nodes[0].Value
+		return string(nodes[0].Value)
 	}
 
-	return nil
+	return ""
 }
 
 // SetPublicKeyPEM sets the value in [secv1.PublicKeyPem].
-func (pk *PublicKey) SetPublicKeyPEM(v json.RawMessage) *PublicKey {
-	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: v})
+func (pk *PublicKey) SetPublicKeyPEM(v string) *PublicKey {
+	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: []byte(v)})
 	return pk
 }
