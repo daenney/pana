@@ -7,6 +7,11 @@ import ld "sourcery.dny.nu/longdistance"
 // You can use [Any.GetType] to determine what to cast it to.
 type Any ld.Node
 
+// See [Object.GetID].
+func (a *Any) GetID() string {
+	return (*Object)(a).GetID()
+}
+
 // See [Object.GetType].
 func (a *Any) GetType() string {
 	return (*Object)(a).GetType()
