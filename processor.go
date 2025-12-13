@@ -3,12 +3,15 @@ package pana
 import (
 	"fmt"
 	"log/slog"
+	"slices"
+	"strings"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/internal/json"
 	"sourcery.dny.nu/pana/internal/loader"
 	"sourcery.dny.nu/pana/vocab/schema"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
+	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
 
 // Processor is used to process incoming messages and prepare outgoing messages.
@@ -16,14 +19,14 @@ import (
 // Your application only needs a single processor instance.
 type Processor struct {
 	ldproc *ld.Processor
-	l      *loader.Builtin
 }
 
 // NewProcessor initialised a new [Processor] suitable for dealing with
 // ActivityStreams messages.
 //
 // It uses [loader.Builtin] to retrieve contexts and does not retrieve them over
-// the network.
+// the network. It also uses [ValidateContext] to enforce additional constraints
+// on the context term definitions.
 func NewProcessor(
 	logger *slog.Logger,
 ) *Processor {
@@ -31,17 +34,16 @@ func NewProcessor(
 		logger = slog.New(slog.DiscardHandler)
 	}
 
-	loader := loader.New()
 	return &Processor{
-		l: loader,
 		ldproc: ld.NewProcessor(
 			ld.WithLogger(logger),
 			ld.WithCompactArrays(true),
 			ld.WithCompactToRelative(false), // Avoids compacting to relative IRIs
 			ld.With10Processing(false),      // Misskey seems to do some JSON-LD 1.1
-			ld.WithRemoteContextLoader(loader.Get),
+			ld.WithRemoteContextLoader((loader.New()).Get),
 			ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
 			ld.WithRemapPrefixIRIs("http://schema.org#", schema.Namespace),
+			ld.WithValidateContext(ValidateContext),
 		),
 	}
 }
@@ -85,14 +87,18 @@ func (p *Processor) Marshal(
 // Unmarshal takes a JSON document and returns an [Activity] that represents it
 // using JSON-LD expanded document form.
 //
+// If the document was retrieved over HTTP, the request URL should be passed
+// as the second argument.
+//
 // In JSON-LD the result of expanding a document is always a list. But in the
 // case of ActivityPub we only ever send out a single document at a time, so it
-// returns [Activity]. If the result happens to have more than one object an
-// error is raised so it doesn't go unnoticed.
+// returns [Any]. If the result happens to have more than one object an error is
+// raised so it doesn't go unnoticed.
 func (p *Processor) Unmarshal(
 	document json.RawMessage,
+	url string,
 ) (*Any, error) {
-	res, err := p.ldproc.Expand(document, "")
+	res, err := p.ldproc.Expand(document, url)
 	if err != nil {
 		return nil, err
 	}
@@ -104,22 +110,56 @@ func (p *Processor) Unmarshal(
 	return (*Any)(&res[0]), nil
 }
 
-// RegisterContextURL adds or overrides a context document for the specified
-// remote context URL in the loader.
-func (p *Processor) RegisterContextURL(
-	url string,
-	doc json.RawMessage,
-) error {
-	return p.l.RegisterContextURL(url, doc)
-}
+// ValidateContext enforces that the term to IRI mapping for certain contexts
+// match their normative context definition. This ensures IRIs aren't compacted
+// to unexpected terms.
+func ValidateContext(ctx *ld.Context) bool {
+	for term, def := range ctx.Terms() {
+		if strings.HasPrefix(def.IRI, as.Namespace) {
+			if def.Prefix {
+				if term == "as" && def.IRI != as.Namespace {
+					return false
+				}
+				continue
+			}
 
-// RegisterContextPath adds or overrides a context document for the specified
-// remote path in the loader.
-//
-// Paths are always matches as URL suffixes.
-func (p *Processor) RegisterContextPath(
-	path string,
-	doc json.RawMessage,
-) error {
-	return p.l.RegisterContextPath(path, doc)
+			short := as.Term(def.IRI)
+
+			if slices.Equal(def.Container, []string{ld.KeywordLanguage}) {
+				if term != short && term != short+"Map" {
+					return false
+				}
+				continue
+			}
+
+			if slices.Equal(def.Container, []string{ld.KeywordList}) {
+				if term != short && term != "ordered"+strings.ToUpper(short[:1])+short[1:] {
+					return false
+				}
+				continue
+			}
+
+			if term != as.Term(def.IRI) {
+				return false
+			}
+
+			continue
+		}
+
+		if strings.HasPrefix(def.IRI, secv1.Namespace) {
+			if def.Prefix {
+				if term == "sec" && def.IRI != secv1.Namespace {
+					return false
+				}
+				continue
+			}
+
+			short := secv1.Term(def.IRI)
+			if term != short {
+				return false
+			}
+		}
+	}
+
+	return true
 }

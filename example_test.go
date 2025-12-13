@@ -163,7 +163,7 @@ func ExampleProcessor_Unmarshal() {
     "type": "Create"
 }`)
 	proc := pana.NewProcessor(slog.New(slog.DiscardHandler))
-	activity, err := proc.Unmarshal(msg)
+	activity, err := proc.Unmarshal(msg, "")
 	if err != nil {
 		panic(err)
 	}

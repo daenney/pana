@@ -102,7 +102,12 @@ func CompactIRI(iri string) string {
 }
 
 func Term(iri string) string {
-	return strings.TrimPrefix(iri, Namespace)
+	switch iri {
+	case TypeCryptographicKey:
+		return "CryptographicKey"
+	default:
+		return strings.TrimPrefix(iri, Namespace)
+	}
 }
 
 func TermDefForIRI(iri string) string {
