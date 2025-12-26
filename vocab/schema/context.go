@@ -6,7 +6,10 @@ import (
 )
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
-const Namespace = "http://schema.org/"
+//
+// This uses the fragment-suffixed namespace, as even though that's incorrect it
+// is what's in use across ActivityPub implementations.
+const Namespace = "http://schema.org#"
 
 // Prefix is the canonical shorthand for [Namespace].
 const Prefix = "schema"

@@ -9,7 +9,6 @@ import (
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/internal/json"
 	"sourcery.dny.nu/pana/internal/loader"
-	"sourcery.dny.nu/pana/vocab/schema"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
@@ -42,7 +41,6 @@ func NewProcessor(
 			ld.With10Processing(false),      // Misskey seems to do some JSON-LD 1.1
 			ld.WithRemoteContextLoader((loader.New()).Get),
 			ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
-			ld.WithRemapPrefixIRIs("http://schema.org#", schema.Namespace),
 			ld.WithValidateContext(ValidateContext),
 		),
 	}
