@@ -1,8 +1,4 @@
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
-sourcery.dny.nu/longdistance v0.1.0 h1:TFtslHs+5ohn+48jqYzkLcJdP6KB2iKijPT3PPiPR/A=
-sourcery.dny.nu/longdistance v0.1.0/go.mod h1:+Qb2rPZDLi7Xz/iBzeLanpkCpPr6eLOOsFLb+SO+Wfg=
-sourcery.dny.nu/longdistance v0.1.1 h1:2YTwDDLqqMh2qT5+XYGwqYvgWCi5tPkc5uzUnE7ZD7Y=
-sourcery.dny.nu/longdistance v0.1.1/go.mod h1:zBvZfmLWRbVfw7AxFn2uxA4HmNkgb63rKWedfqIASNc=
-sourcery.dny.nu/longdistance v0.2.0 h1:rvnXa227IaI9xsvrOig5Wp/91leeWLl2je0iAkpauE4=
-sourcery.dny.nu/longdistance v0.2.0/go.mod h1:zBvZfmLWRbVfw7AxFn2uxA4HmNkgb63rKWedfqIASNc=
+sourcery.dny.nu/longdistance v0.3.0 h1:CiPuUC6XfrT+vXFQltT8zXf92cR7rllRM14xbqZjt9U=
+sourcery.dny.nu/longdistance v0.3.0/go.mod h1:zBvZfmLWRbVfw7AxFn2uxA4HmNkgb63rKWedfqIASNc=
