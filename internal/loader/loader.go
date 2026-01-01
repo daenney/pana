@@ -5,7 +5,6 @@ import (
 	"maps"
 	"slices"
 	"strings"
-	"sync"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/internal/json"
@@ -23,8 +22,6 @@ type Builtin struct {
 	domains  map[string]ld.Document
 	paths    map[string]ld.Document
 	pathKeys []string
-
-	lock sync.RWMutex
 }
 
 func New() *Builtin {
@@ -45,9 +42,6 @@ func New() *Builtin {
 
 // Get is an [ld.RemoteContextLoaderFunc].
 func (b *Builtin) Get(_ context.Context, url string) (ld.Document, error) {
-	b.lock.RLock()
-	defer b.lock.RUnlock()
-
 	if doc, ok := b.domains[url]; ok {
 		return doc, nil
 	}
@@ -66,9 +60,6 @@ func (b *Builtin) Get(_ context.Context, url string) (ld.Document, error) {
 // RegisterContextURL adds or overrides a context document for the specified
 // remote context URL in the loader.
 func (b *Builtin) RegisterContextURL(url string, doc json.RawMessage) error {
-	b.lock.Lock()
-	defer b.lock.Unlock()
-
 	ctx, err := json.GetContextDocument(doc)
 	if err != nil {
 		return err
@@ -83,9 +74,6 @@ func (b *Builtin) RegisterContextURL(url string, doc json.RawMessage) error {
 //
 // Paths are always matches as URL suffixes.
 func (b *Builtin) RegisterContextPath(path string, doc json.RawMessage) error {
-	b.lock.Lock()
-	defer b.lock.Unlock()
-
 	ctx, err := json.GetContextDocument(doc)
 	if err != nil {
 		return err
