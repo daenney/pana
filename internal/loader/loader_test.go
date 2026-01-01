@@ -37,7 +37,7 @@ func TestLoaderPath(t *testing.T) {
 		t.Fatalf("expected no error, got: %s", err)
 	}
 
-	ctxdoc, err := json.GetContextDocument(litepub.ContextDocument1dot0)
+	ctxdoc, err := json.GetContextDocument(litepub.ContextDocument0dot1)
 	if err != nil {
 		t.Fatalf("expected document to have @context, got: %s", err)
 	}

@@ -36,7 +36,7 @@ func New() *Builtin {
 	b.RegisterContextURL(secv1.IRI, secv1.ContextDocument)
 	b.RegisterContextURL(litepub.IRI, litepub.ContextDocument)
 	b.RegisterContextURL(geojson.IRI, geojson.ContextDocument)
-	b.RegisterContextPath("/litepub-0.1.jsonld", litepub.ContextDocument1dot0)
+	b.RegisterContextPath("/litepub-0.1.jsonld", litepub.ContextDocument0dot1)
 	return b
 }
 

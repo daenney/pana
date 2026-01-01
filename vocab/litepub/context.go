@@ -10,7 +10,7 @@ import (
 var ContextDocument []byte
 
 //go:embed litepub-0.1.jsonld
-var ContextDocument1dot0 []byte
+var ContextDocument0dot1 []byte
 
 // IRI is the remote context IRI.
 const IRI = "https://litepub.social/litepub/context.jsonld"
