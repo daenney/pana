@@ -15,7 +15,7 @@ import (
 )
 
 func ExampleProcessor_Marshal() {
-	proc := pana.NewProcessor(slog.New(slog.DiscardHandler))
+	proc := pana.New(slog.New(slog.DiscardHandler))
 
 	activity := pana.NewActivity().
 		SetID("https://example.com/id/1").
@@ -165,7 +165,7 @@ func ExampleProcessor_Unmarshal() {
     "to": "https://www.w3.org/ns/activitystreams#Public",
     "type": "Create"
 }`)
-	proc := pana.NewProcessor(slog.New(slog.DiscardHandler))
+	proc := pana.New(slog.New(slog.DiscardHandler))
 	activity, err := proc.Unmarshal(bytes.NewReader(msg), "")
 	if err != nil {
 		panic(err)

@@ -1,6 +1,7 @@
 package pana
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"log/slog"
@@ -21,17 +22,33 @@ type Processor struct {
 	ldproc *ld.Processor
 }
 
-// NewProcessor initialised a new [Processor] suitable for dealing with
+// New initialised a new [Processor] suitable for dealing with
 // ActivityStreams messages.
 //
 // It uses [loader.Builtin] to retrieve contexts and does not retrieve them over
 // the network. It also uses [ValidateContext] to enforce additional constraints
 // on the context term definitions.
-func NewProcessor(
+func New(
 	logger *slog.Logger,
 ) *Processor {
 	if logger == nil {
 		logger = slog.New(slog.DiscardHandler)
+	}
+
+	var expandCtx *ld.Context
+	{
+		doc, err := json.GetContextDocument(as.ContextDocument)
+		if err != nil {
+			panic("bundled ActivityStreams context document is invalid")
+		}
+
+		p := ld.NewProcessor()
+		ctx, err := p.Context(bytes.NewReader(doc), as.IRI)
+		if err != nil {
+			panic(err)
+		}
+
+		expandCtx = ctx
 	}
 
 	return &Processor{
@@ -43,6 +60,7 @@ func NewProcessor(
 			ld.WithRemoteContextLoader((loader.New()).Get),
 			ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
 			ld.WithValidateContext(ValidateContext),
+			ld.WithProcessedContext(as.IRI, expandCtx),
 		),
 	}
 }

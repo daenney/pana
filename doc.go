@@ -5,7 +5,7 @@
 //
 // # Usage
 //
-// An application starts with creating a [Processor] using [NewProcessor]. This
+// An application starts with creating a [Processor] using [New]. This
 // processor should exist for the lifetime of the application, and not a single
 // request.
 //
