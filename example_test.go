@@ -1,6 +1,7 @@
 package pana_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"iter"
@@ -40,7 +41,9 @@ func ExampleProcessor_Marshal() {
 		SetType(as.TypeCreate).
 		Build()
 
-	compacted, err := proc.Marshal(
+	var compacted bytes.Buffer
+	err := proc.Marshal(
+		&compacted,
 		json.RawMessage(`{"@context":"https://www.w3.org/ns/activitystreams"}`),
 		pana.Any(activity),
 	)
@@ -50,7 +53,7 @@ func ExampleProcessor_Marshal() {
 	}
 
 	var res any
-	_ = json.Unmarshal(compacted, &res)
+	_ = json.Unmarshal(compacted.Bytes(), &res)
 	ind, _ := json.MarshalIndent(res, "", "  ")
 	fmt.Println(string(ind))
 	// Output:
@@ -163,7 +166,7 @@ func ExampleProcessor_Unmarshal() {
     "type": "Create"
 }`)
 	proc := pana.NewProcessor(slog.New(slog.DiscardHandler))
-	activity, err := proc.Unmarshal(msg, "")
+	activity, err := proc.Unmarshal(bytes.NewReader(msg), "")
 	if err != nil {
 		panic(err)
 	}

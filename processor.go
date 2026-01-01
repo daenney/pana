@@ -2,6 +2,7 @@ package pana
 
 import (
 	"fmt"
+	"io"
 	"log/slog"
 	"slices"
 	"strings"
@@ -56,13 +57,14 @@ func NewProcessor(
 // provided, [Divinate] will be used to attempt and determine an appropriate
 // one.
 func (p *Processor) Marshal(
+	dst io.Writer,
 	compactionContext json.RawMessage,
 	object Any,
-) (json.RawMessage, error) {
+) error {
 	if compactionContext == nil {
 		res, err := Divinate(ld.Node(object))
 		if err != nil {
-			return nil, fmt.Errorf("context divination failed: %w", err)
+			return fmt.Errorf("context divination failed: %w", err)
 		}
 		compactionContext = res
 	}
@@ -70,12 +72,13 @@ func (p *Processor) Marshal(
 	if compactionContext[0] == '{' {
 		ctx, err := json.GetContextDocument(compactionContext)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		compactionContext = ctx
 	}
 
 	return p.ldproc.Compact(
+		dst,
 		compactionContext,
 		[]ld.Node{ld.Node(object)},
 		"",
@@ -93,7 +96,7 @@ func (p *Processor) Marshal(
 // returns [Any]. If the result happens to have more than one object an error is
 // raised so it doesn't go unnoticed.
 func (p *Processor) Unmarshal(
-	document json.RawMessage,
+	document io.Reader,
 	url string,
 ) (*Any, error) {
 	res, err := p.ldproc.Expand(document, url)
