@@ -32,16 +32,14 @@ func TermDefForIRI(iri string) map[string]any {
 		Prefix: Namespace,
 	}
 
-	switch v := Term(iri); v {
+	switch iri {
 	case Conversation:
-		res[v] = map[string]any{
+		res[Term(iri)] = map[string]any{
 			ld.KeywordID:   CompactIRI(iri),
 			ld.KeywordType: ld.KeywordID,
 		}
 	default:
-		res[v] = map[string]any{
-			v: CompactIRI(iri),
-		}
+		res[Term(iri)] = CompactIRI(iri)
 	}
 
 	return res

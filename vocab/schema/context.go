@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// IRI is the remote context IRI.
+const IRI = "https://schema.org/docs/jsonldcontext.json"
+
 // Namespace is the IRI prefix used for terms defined in this namespace.
 //
 // This uses the fragment-suffixed namespace, as even though that's incorrect it
