@@ -1,7 +1,11 @@
 // Package ostatus contains terms for the Ostatus.org namespace.
 package ostatus
 
-import "strings"
+import (
+	"strings"
+
+	ld "sourcery.dny.nu/longdistance"
+)
 
 // Namespace is the IRI prefix used for terms defined in this namespace.
 const Namespace = "http://ostatus.org#"
@@ -24,8 +28,21 @@ func Term(iri string) string {
 }
 
 func TermDefForIRI(iri string) map[string]any {
-	return map[string]any{
-		Prefix:    Namespace,
-		Term(iri): CompactIRI(iri),
+	res := map[string]any{
+		Prefix: Namespace,
 	}
+
+	switch v := Term(iri); v {
+	case Conversation:
+		res[v] = map[string]any{
+			ld.KeywordID:   CompactIRI(iri),
+			ld.KeywordType: ld.KeywordID,
+		}
+	default:
+		res[v] = map[string]any{
+			v: CompactIRI(iri),
+		}
+	}
+
+	return res
 }
