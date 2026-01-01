@@ -386,14 +386,16 @@ func TermDefForIRI(iri string) any {
 	switch iri {
 	case Sensitive:
 		return map[string]any{
-			ld.KeywordID:   short,
-			ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
-		}
+			term: map[string]any{
+				ld.KeywordID:   short,
+				ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
+			}}
 	case MovedTo:
 		return map[string]any{
-			ld.KeywordID:   short,
-			ld.KeywordType: ld.KeywordID,
-		}
+			term: map[string]any{
+				ld.KeywordID:   short,
+				ld.KeywordType: ld.KeywordID,
+			}}
 	case TypeHashtag, ManuallyApprovesFollowers:
 		return map[string]any{
 			term: short,

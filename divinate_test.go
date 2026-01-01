@@ -11,6 +11,7 @@ import (
 	"sourcery.dny.nu/pana/vocab/schema"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 	"sourcery.dny.nu/pana/vocab/w3/ldp"
+	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
 
@@ -73,6 +74,7 @@ func TestDivinate(t *testing.T) {
 					mastodon.Discoverable:        []ld.Node{{Value: []byte(`true`)}},
 					mastodon.Indexable:           []ld.Node{{Value: []byte(`true`)}},
 					as.Published:                 []ld.Node{{Value: []byte(`"2010-01-01T00:00:00Z"`)}},
+					as.Sensitive:                 []ld.Node{{Value: []byte(`true`)}},
 					mastodon.Memorial:            []ld.Node{{Value: []byte(`true`)}},
 					mastodon.AttributionDomains: []ld.Node{
 						{ID: "https://example.com/domain1"},
@@ -132,6 +134,10 @@ func TestDivinate(t *testing.T) {
 					as.Term(
 						as.ManuallyApprovesFollowers,
 					): as.CompactIRI(as.ManuallyApprovesFollowers),
+					as.Term(as.Sensitive): map[string]any{
+						ld.KeywordID:   as.CompactIRI(as.Sensitive),
+						ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
+					},
 					schema.Prefix: schema.Namespace,
 					schema.Term(
 						schema.TypePropertyValue,
