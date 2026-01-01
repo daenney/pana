@@ -4,6 +4,8 @@ package litepub
 import (
 	_ "embed"
 	"strings"
+
+	ld "sourcery.dny.nu/longdistance"
 )
 
 //go:embed context.jsonld
@@ -41,8 +43,19 @@ func Term(iri string) string {
 }
 
 func TermDefForIRI(iri string) map[string]any {
-	return map[string]any{
-		Prefix:    Namespace,
-		Term(iri): CompactIRI(iri),
+	res := map[string]any{
+		Prefix: Namespace,
 	}
+
+	switch iri {
+	case ListMessage, OauthRegistrationEndpoint:
+		res[Term(iri)] = map[string]any{
+			ld.KeywordID:   CompactIRI(iri),
+			ld.KeywordType: ld.KeywordID,
+		}
+	default:
+		res[Term(iri)] = CompactIRI
+	}
+
+	return res
 }
