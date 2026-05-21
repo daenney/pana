@@ -62,6 +62,7 @@ func New(
 			ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
 			ld.WithValidateContext(ValidateContext),
 			ld.WithProcessedContext(as.IRI, expandCtx),
+			ld.WithDisallowedKeywords(ld.KeywordIncluded, ld.KeywordIndex, ld.KeywordGraph, ld.KeywordNest, ld.KeywordReverse),
 		),
 	}
 }
