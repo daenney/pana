@@ -2,4 +2,4 @@ module sourcery.dny.nu/pana
 
 go 1.24
 
-require sourcery.dny.nu/longdistance v0.4.2
+require sourcery.dny.nu/longdistance v0.5.0

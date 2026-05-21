@@ -2,6 +2,7 @@ package pana
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"log/slog"
@@ -43,7 +44,7 @@ func New(
 		}
 
 		p := ld.NewProcessor()
-		ctx, err := p.Context(bytes.NewReader(doc), as.IRI)
+		ctx, err := p.Context(context.Background(), bytes.NewReader(doc), as.IRI)
 		if err != nil {
 			panic(err)
 		}
@@ -75,6 +76,7 @@ func New(
 // provided, [Divinate] will be used to attempt and determine an appropriate
 // one.
 func (p *Processor) Marshal(
+	ctx context.Context,
 	dst io.Writer,
 	compactionContext json.RawMessage,
 	object Any,
@@ -96,6 +98,7 @@ func (p *Processor) Marshal(
 	}
 
 	return p.ldproc.Compact(
+		ctx,
 		dst,
 		compactionContext,
 		[]ld.Node{ld.Node(object)},
@@ -114,10 +117,11 @@ func (p *Processor) Marshal(
 // returns [Any]. If the result happens to have more than one object an error is
 // raised so it doesn't go unnoticed.
 func (p *Processor) Unmarshal(
+	ctx context.Context,
 	document io.Reader,
 	url string,
 ) (*Any, error) {
-	res, err := p.ldproc.Expand(document, url)
+	res, err := p.ldproc.Expand(ctx, document, url)
 	if err != nil {
 		return nil, err
 	}
