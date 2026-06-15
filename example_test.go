@@ -2,6 +2,7 @@ package pana_test
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"iter"
@@ -43,6 +44,7 @@ func ExampleProcessor_Marshal() {
 
 	var compacted bytes.Buffer
 	err := proc.Marshal(
+		context.TODO(),
 		&compacted,
 		json.RawMessage(`{"@context":"https://www.w3.org/ns/activitystreams"}`),
 		pana.Any(activity),
@@ -166,7 +168,12 @@ func ExampleProcessor_Unmarshal() {
     "type": "Create"
 }`)
 	proc := pana.New(slog.New(slog.DiscardHandler))
-	activity, err := proc.Unmarshal(bytes.NewReader(msg), "")
+	activity, err := proc.Unmarshal(
+		context.TODO(),
+		bytes.NewReader(msg),
+		"",
+	)
+
 	if err != nil {
 		panic(err)
 	}
