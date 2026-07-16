@@ -183,7 +183,7 @@ func (o *Object) GetAttributedTo() iter.Seq[string] {
 
 // AddAttributedTo appends actor IDs to [as.AttributedTo].
 func (o *Object) AddAttributedTo(ids ...string) *Object {
-	(*ld.Node)(o).AddNodes(as.To, toReference(ids...)...)
+	(*ld.Node)(o).AddNodes(as.AttributedTo, toReference(ids...)...)
 	return o
 }
 
