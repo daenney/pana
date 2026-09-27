@@ -75,7 +75,7 @@ func (n *Note) GetAttachment() iter.Seq[*Any] {
 }
 
 // See [Object.AddAttachment].
-func (n *Note) AddAttachment(atch ...Any) *Note {
+func (n *Note) AddAttachment[T Document | Audio | PropertyValue | ld.Node](atch ...T) *Note {
 	(*Object)(n).AddAttachment(atch...)
 	return n
 }
@@ -265,7 +265,7 @@ func (n *Note) GetTag() iter.Seq[*Any] {
 }
 
 // See [Object.AddTag].
-func (n *Note) AddTag(tags ...Any) *Note {
+func (n *Note) AddTag[T LinkTag | Emoji | ld.Node](tags ...T) *Note {
 	(*Object)(n).AddTag(tags...)
 	return n
 }

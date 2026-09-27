@@ -22,7 +22,7 @@ func ExampleProcessor_Marshal() {
 		SetID("https://example.com/id/1").
 		AddTo(as.PublicCollection).
 		SetObject(
-			pana.Any(pana.NewNote().
+			pana.NewNote().
 				AddContent(
 					pana.NewLocalised().
 						SetValue("We spell color wrong.").
@@ -38,7 +38,7 @@ func ExampleProcessor_Marshal() {
 						SetValue("Ona li toki.").
 						Build(),
 				).
-				Build())).
+				Build()).
 		SetType(as.TypeCreate).
 		Build()
 
@@ -47,7 +47,7 @@ func ExampleProcessor_Marshal() {
 		context.TODO(),
 		&compacted,
 		json.RawMessage(`{"@context":"https://www.w3.org/ns/activitystreams"}`),
-		pana.Any(activity),
+		activity,
 	)
 
 	if err != nil {

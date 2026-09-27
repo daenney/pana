@@ -67,7 +67,8 @@ func New(
 	}
 }
 
-// Marshal takes an [Any] and returns JSON-LD in compacted document form.
+// Marshal takes any of the types in this package and returns JSON-LD in
+// compacted document form.
 //
 // This is the shape of JSON you want to exchange with other servers and
 // clients.
@@ -76,11 +77,11 @@ func New(
 // that should be used for compaction. If the compaction context is not
 // provided, [Divinate] will be used to attempt and determine an appropriate
 // one.
-func (p *Processor) Marshal(
+func (p *Processor) Marshal[T node](
 	ctx context.Context,
 	dst io.Writer,
 	compactionContext json.RawMessage,
-	object Any,
+	object T,
 ) error {
 	if compactionContext == nil {
 		res, err := Divinate(ld.Node(object))

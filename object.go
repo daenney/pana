@@ -293,7 +293,7 @@ func (o *Object) GetTag() iter.Seq[*Any] {
 }
 
 // AddTag appends a tag to [as.Tag].
-func (o *Object) AddTag(tag ...Any) *Object {
+func (o *Object) AddTag[T LinkTag | Emoji | ld.Node](tag ...T) *Object {
 	addNodes((*ld.Node)(o), as.Tag, tag)
 	return o
 }
@@ -332,7 +332,7 @@ func (o *Object) GetAttachment() iter.Seq[*Any] {
 }
 
 // AddAttachment appends attachments to [as.Attachment].
-func (o *Object) AddAttachment(atch ...Any) *Object {
+func (o *Object) AddAttachment[T Document | Audio | PropertyValue | ld.Node](atch ...T) *Object {
 	addNodes((*ld.Node)(o), as.Attachment, atch)
 	return o
 }

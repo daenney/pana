@@ -213,7 +213,7 @@ func (a *Activity) GetObject() *Any {
 // It is possible to have more than one object. However, except for JSON-LD
 // aware processors, nobody understands this. If you want to send multiple
 // objects, send multiple activities instead.
-func (a *Activity) SetObject(obj Any) *Activity {
+func (a *Activity) SetObject[T node](obj T) *Activity {
 	(*ld.Node)(a).SetNodes(as.Object, ld.Node(obj))
 	return a
 }
