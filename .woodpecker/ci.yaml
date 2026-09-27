@@ -5,7 +5,7 @@ when:
 
 steps:
   - name: test
-    image: golang:1.24
+    image: golang:1.27
     pull: true
     commands:
       - go test -v sourcery.dny.nu/pana
