@@ -102,7 +102,7 @@ func (o *Object) GetContent() iter.Seq[*Localised] {
 
 // AddContent adds values to [as.Content].
 func (o *Object) AddContent(ls ...Localised) *Object {
-	(*ld.Node)(o).AddNodes(as.Content, toLDNodes(ls...)...)
+	addNodes((*ld.Node)(o), as.Content, ls)
 	return o
 }
 
@@ -272,7 +272,7 @@ func (o *Object) GetSummary() iter.Seq[*Localised] {
 
 // AddSummary adds values to [as.Summary].
 func (o *Object) AddSummary(ls ...Localised) *Object {
-	(*ld.Node)(o).AddNodes(as.Summary, toLDNodes(ls...)...)
+	addNodes((*ld.Node)(o), as.Summary, ls)
 	return o
 }
 
@@ -294,7 +294,7 @@ func (o *Object) GetTag() iter.Seq[*Any] {
 
 // AddTag appends a tag to [as.Tag].
 func (o *Object) AddTag(tag ...Any) *Object {
-	(*ld.Node)(o).AddNodes(as.Tag, toLDNodes(tag...)...)
+	addNodes((*ld.Node)(o), as.Tag, tag)
 	return o
 }
 
@@ -333,7 +333,7 @@ func (o *Object) GetAttachment() iter.Seq[*Any] {
 
 // AddAttachment appends attachments to [as.Attachment].
 func (o *Object) AddAttachment(atch ...Any) *Object {
-	(*ld.Node)(o).AddNodes(as.Attachment, toLDNodes(atch...)...)
+	addNodes((*ld.Node)(o), as.Attachment, atch)
 	return o
 }
 
@@ -413,7 +413,7 @@ func (o *Object) GetName() iter.Seq[*Localised] {
 
 // AddName appends localised values to [as.Name].
 func (o *Object) AddName(ls ...Localised) *Object {
-	(*ld.Node)(o).AddNodes(as.Name, toLDNodes(ls...)...)
+	addNodes((*ld.Node)(o), as.Name, ls)
 	return o
 }
 

@@ -33,7 +33,7 @@ func (q *Question) IsMultipleChoice() bool {
 		return false
 	}
 
-	return Has((*Any)(q), as.AnyOf)
+	return Has(q, as.AnyOf)
 }
 
 // See [Object.GetType].
@@ -143,7 +143,7 @@ func (q *Question) GetAnyOf() iter.Seq[Choice] {
 
 // AddAnyOf appends [Choice] to [as.AnyOf].
 func (q *Question) AddAnyOf(chs ...Choice) *Question {
-	(*ld.Node)(q).AddNodes(as.AnyOf, toLDNodes(chs...)...)
+	addNodes((*ld.Node)(q), as.AnyOf, chs)
 	return q
 }
 
@@ -162,7 +162,7 @@ func (q *Question) GetOneOf() iter.Seq[Choice] {
 
 // AddOneOf appends [Choice] to [as.OneOf].
 func (q *Question) AddOneOf(chs ...Choice) *Question {
-	(*ld.Node)(q).AddNodes(as.OneOf, toLDNodes(chs...)...)
+	addNodes((*ld.Node)(q), as.OneOf, chs)
 	return q
 }
 

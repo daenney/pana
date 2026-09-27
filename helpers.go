@@ -1,6 +1,17 @@
 package pana
 
-import ld "sourcery.dny.nu/longdistance"
+import (
+	"slices"
+
+	ld "sourcery.dny.nu/longdistance"
+)
+
+type node interface {
+	ld.Node | Object | Article | Activity | Note | Collection | CollectionPage |
+		Tombstone | Instrument | Document | Audio | Icon | Link | LinkTag |
+		PublicKey | Profile | Relationship | Actor | Any | Page | Place | Emoji |
+		Endpoints | Localised | Question | Choice | Event
+}
 
 func toReference(ids ...string) []ld.Node {
 	if len(ids) == 0 {
@@ -15,15 +26,15 @@ func toReference(ids ...string) []ld.Node {
 	return res
 }
 
-func toLDNodes[T ld.Internal](ins ...T) []ld.Node {
+func addNodes[T node](n *ld.Node, property string, ins []T) {
 	if len(ins) == 0 {
-		return nil
+		return
 	}
 
-	res := make([]ld.Node, 0, len(ins))
+	res := slices.Grow(n.Properties[property], len(ins))
 	for _, in := range ins {
 		res = append(res, ld.Node(in))
 	}
 
-	return res
+	n.Properties[property] = res
 }

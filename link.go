@@ -76,7 +76,7 @@ func (l *Link) GetName() iter.Seq[*Localised] {
 
 // SetName sets a value in [as.Name].
 func (l *Link) AddName(ls ...Localised) *Link {
-	(*ld.Node)(l).AddNodes(as.Name, toLDNodes(ls...)...)
+	addNodes((*ld.Node)(l), as.Name, ls)
 	return l
 }
 
