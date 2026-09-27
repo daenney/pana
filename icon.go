@@ -1,7 +1,7 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -35,7 +35,7 @@ func (i *Icon) SetType() *Icon {
 }
 
 // GetMediaType returns the value in [as.MediaType].
-func (i *Icon) GetMediaType() json.RawMessage {
+func (i *Icon) GetMediaType() jsontext.Value {
 	return (*Image)(i).GetMediaType()
 }
 
@@ -46,7 +46,7 @@ func (i *Icon) SetMediaType(v string) *Icon {
 }
 
 // SetMediaTypeRaw sets the value in [as.MediaType].
-func (i *Icon) SetMediaTypeRaw(v json.RawMessage) *Icon {
+func (i *Icon) SetMediaTypeRaw(v jsontext.Value) *Icon {
 	(*Image)(i).SetMediaTypeRaw(v)
 	return i
 }

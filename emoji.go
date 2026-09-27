@@ -1,7 +1,7 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
 	"iter"
 	"time"
 
@@ -62,7 +62,7 @@ func (e *Emoji) AddName(ls ...Localised) *Emoji {
 }
 
 // See [Object.GetUpdated].
-func (e *Emoji) GetUpdated() json.RawMessage {
+func (e *Emoji) GetUpdated() jsontext.Value {
 	return (*Object)(e).GetUpdated()
 }
 
@@ -73,7 +73,7 @@ func (e *Emoji) SetUpdated(v time.Time) *Emoji {
 }
 
 // See [Object.SetUpdatedRaw].
-func (e *Emoji) SetUpdatedRaw(v json.RawMessage) *Emoji {
+func (e *Emoji) SetUpdatedRaw(v jsontext.Value) *Emoji {
 	(*Object)(e).SetUpdatedRaw(v)
 	return e
 }

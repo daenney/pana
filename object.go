@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 	"time"
 
@@ -147,7 +148,7 @@ func (o *Object) AddTo(ids ...string) *Object {
 // GetPublished retrieves the value from [as.Published].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-published.
-func (o *Object) GetPublished() json.RawMessage {
+func (o *Object) GetPublished() jsontext.Value {
 	if nodes := (*ld.Node)(o).GetNodes(as.Published); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -163,7 +164,7 @@ func (o *Object) SetPublished(dt time.Time) *Object {
 }
 
 // SetPublishedRaw sets the value in [as.Published].
-func (o *Object) SetPublishedRaw(value json.RawMessage) *Object {
+func (o *Object) SetPublishedRaw(value jsontext.Value) *Object {
 	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: value, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
@@ -340,7 +341,7 @@ func (o *Object) AddAttachment[T Document | Audio | PropertyValue | ld.Node](atc
 // GetSensitive returns the value from [as.Sensitive].
 //
 // See https://swicg.github.io/miscellany/#sensitive.
-func (o *Object) GetSensitive() json.RawMessage {
+func (o *Object) GetSensitive() jsontext.Value {
 	if nodes := (*ld.Node)(o).GetNodes(as.Sensitive); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -356,7 +357,7 @@ func (o *Object) SetSensitive(v bool) *Object {
 }
 
 // SetSensitiveRaw sets the value in [as.Sensitive].
-func (o *Object) SetSensitiveRaw(v json.RawMessage) *Object {
+func (o *Object) SetSensitiveRaw(v jsontext.Value) *Object {
 	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: v})
 	return o
 }
@@ -379,7 +380,7 @@ func (o *Object) SetInReplyToAtomURI(uri string) *Object {
 // GetUpdated returns the value in [as.Updated].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
-func (o *Object) GetUpdated() json.RawMessage {
+func (o *Object) GetUpdated() jsontext.Value {
 	if nodes := (*ld.Node)(o).GetNodes(as.Updated); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -395,7 +396,7 @@ func (o *Object) SetUpdated(v time.Time) *Object {
 }
 
 // SetUpdatedRaw sets the value in [as.Updated].
-func (o *Object) SetUpdatedRaw(v json.RawMessage) *Object {
+func (o *Object) SetUpdatedRaw(v jsontext.Value) *Object {
 	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }

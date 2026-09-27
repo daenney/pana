@@ -2,12 +2,13 @@ package loader
 
 import (
 	"context"
+	"encoding/json/jsontext"
 	"maps"
 	"slices"
 	"strings"
 
 	ld "sourcery.dny.nu/longdistance"
-	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/internal/jsonutil"
 	"sourcery.dny.nu/pana/vocab/geojson"
 	gts "sourcery.dny.nu/pana/vocab/gotosocial"
 	"sourcery.dny.nu/pana/vocab/litepub"
@@ -59,8 +60,8 @@ func (b *Builtin) Get(_ context.Context, url string) (ld.Document, error) {
 
 // RegisterContextURL adds or overrides a context document for the specified
 // remote context URL in the loader.
-func (b *Builtin) RegisterContextURL(url string, doc json.RawMessage) error {
-	ctx, err := json.GetContextDocument(doc)
+func (b *Builtin) RegisterContextURL(url string, doc jsontext.Value) error {
+	ctx, err := jsonutil.GetContextDocument(doc)
 	if err != nil {
 		return err
 	}
@@ -73,8 +74,8 @@ func (b *Builtin) RegisterContextURL(url string, doc json.RawMessage) error {
 // remote path in the loader.
 //
 // Paths are always matches as URL suffixes.
-func (b *Builtin) RegisterContextPath(path string, doc json.RawMessage) error {
-	ctx, err := json.GetContextDocument(doc)
+func (b *Builtin) RegisterContextPath(path string, doc jsontext.Value) error {
+	ctx, err := jsonutil.GetContextDocument(doc)
 	if err != nil {
 		return err
 	}

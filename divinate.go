@@ -2,7 +2,8 @@ package pana
 
 import (
 	"cmp"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"maps"
 	"slices"
 
@@ -16,7 +17,7 @@ import (
 //
 // This is done using the knowledge of the vocab packages. As such, it cannot
 // determine a compaction term definition for a term Pana doesn't recognise.
-func Divinate(doc ld.Node) (json.RawMessage, error) {
+func Divinate(doc ld.Node) (jsontext.Value, error) {
 	remotes := map[string]struct{}{
 		activitystreams.IRI: {},
 	}
@@ -33,7 +34,7 @@ func Divinate(doc ld.Node) (json.RawMessage, error) {
 	}
 
 	if lr == 1 && le == 0 {
-		return json.RawMessage(`"` + slices.Collect(maps.Keys(remotes))[0] + `"`), nil
+		return jsontext.Value(`"` + slices.Collect(maps.Keys(remotes))[0] + `"`), nil
 	}
 
 	rems := slices.Collect(maps.Keys(remotes))
@@ -56,7 +57,7 @@ func Divinate(doc ld.Node) (json.RawMessage, error) {
 		data = append(data, local)
 	}
 
-	return json.Marshal(data)
+	return json.Marshal(data, json.Deterministic(true))
 }
 
 func divinate(doc ld.Node, remotes map[string]struct{}, elems map[string]any) {

@@ -3,6 +3,7 @@ package pana
 import (
 	"bytes"
 	"context"
+	"encoding/json/jsontext"
 	"fmt"
 	"io"
 	"log/slog"
@@ -10,7 +11,7 @@ import (
 	"strings"
 
 	ld "sourcery.dny.nu/longdistance"
-	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/internal/jsonutil"
 	"sourcery.dny.nu/pana/internal/loader"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
@@ -36,35 +37,25 @@ func New(
 		logger = slog.New(slog.DiscardHandler)
 	}
 
-	var expandCtx *ld.Context
-	{
-		doc, err := json.GetContextDocument(as.ContextDocument)
-		if err != nil {
-			panic("bundled ActivityStreams context document is invalid")
-		}
-
-		p := ld.NewProcessor()
-		ctx, err := p.Context(context.Background(), bytes.NewReader(doc), as.IRI)
-		if err != nil {
-			panic(err)
-		}
-
-		expandCtx = ctx
+	opts := []ld.ProcessorOption{
+		ld.WithLogger(logger),
+		ld.WithCompactArrays(true),
+		ld.WithCompactToRelative(false),
+		ld.With10Processing(false), // Misskey seems to do some JSON-LD 1.1
+		ld.WithRemoteContextLoader((loader.New()).Get),
+		ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
+		ld.WithValidateContext(ValidateContext),
+		ld.WithDisallowedKeywords(
+			ld.KeywordIncluded, ld.KeywordIndex,
+			ld.KeywordGraph, ld.KeywordNest,
+			ld.KeywordReverse),
 	}
 
-	return &Processor{
-		ldproc: ld.NewProcessor(
-			ld.WithLogger(logger),
-			ld.WithCompactArrays(true),
-			ld.WithCompactToRelative(false), // Avoids compacting to relative IRIs
-			ld.With10Processing(false),      // Misskey seems to do some JSON-LD 1.1
-			ld.WithRemoteContextLoader((loader.New()).Get),
-			ld.WithExcludeIRIsFromCompaction(as.PublicCollection),
-			ld.WithValidateContext(ValidateContext),
-			ld.WithProcessedContext(as.IRI, expandCtx),
-			ld.WithDisallowedKeywords(ld.KeywordIncluded, ld.KeywordIndex, ld.KeywordGraph, ld.KeywordNest, ld.KeywordReverse),
-		),
+	for iri, ctx := range cacheableContexts() {
+		opts = append(opts, ld.WithProcessedContext(iri, ctx))
 	}
+
+	return &Processor{ldproc: ld.NewProcessor(opts...)}
 }
 
 // Marshal takes any of the types in this package and returns JSON-LD in
@@ -80,7 +71,7 @@ func New(
 func (p *Processor) Marshal[T node](
 	ctx context.Context,
 	dst io.Writer,
-	compactionContext json.RawMessage,
+	compactionContext jsontext.Value,
 	object T,
 ) error {
 	if compactionContext == nil {
@@ -92,7 +83,7 @@ func (p *Processor) Marshal[T node](
 	}
 
 	if compactionContext[0] == '{' {
-		ctx, err := json.GetContextDocument(compactionContext)
+		ctx, err := jsonutil.GetContextDocument(compactionContext)
 		if err != nil {
 			return err
 		}
@@ -187,4 +178,23 @@ func ValidateContext(ctx *ld.Context) bool {
 	}
 
 	return true
+}
+
+func cacheableContexts() map[string]*ld.Context {
+	elems := map[string][]byte{
+		as.IRI:    as.ContextDocument,
+		secv1.IRI: secv1.ContextDocument,
+	}
+
+	res := make(map[string]*ld.Context, len(elems))
+	p := ld.NewProcessor(
+		ld.With10Processing(false),
+	)
+
+	for iri, doc := range elems {
+		ctx, _ := jsonutil.GetContextDocument(doc)
+		res[iri] = p.CacheableContext(context.Background(), iri, bytes.NewBuffer(ctx))
+	}
+
+	return res
 }

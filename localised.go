@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 
 	ld "sourcery.dny.nu/longdistance"
 )
@@ -38,7 +39,7 @@ func (l *Localised) SetLanguage(lang string) *Localised {
 }
 
 // GetValue returns the value.
-func (l *Localised) GetValue() json.RawMessage {
+func (l *Localised) GetValue() jsontext.Value {
 	return l.Value
 }
 
@@ -57,7 +58,7 @@ func (l *Localised) SetValue(value string) *Localised {
 //
 // The value must be a valid UTF-8 byte sequence. Use [unicode/utf8.Valid] to
 // check for that if necessary.
-func (l *Localised) SetValueRaw(value json.RawMessage) *Localised {
+func (l *Localised) SetValueRaw(value jsontext.Value) *Localised {
 	l.Value = value
 	return l
 }

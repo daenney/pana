@@ -3,7 +3,8 @@ package pana_test
 import (
 	"bytes"
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 	"iter"
 	"log/slog"
@@ -46,7 +47,7 @@ func ExampleProcessor_Marshal() {
 	err := proc.Marshal(
 		context.TODO(),
 		&compacted,
-		json.RawMessage(`{"@context":"https://www.w3.org/ns/activitystreams"}`),
+		jsontext.Value(`{"@context":"https://www.w3.org/ns/activitystreams"}`),
 		activity,
 	)
 
@@ -56,7 +57,7 @@ func ExampleProcessor_Marshal() {
 
 	var res any
 	_ = json.Unmarshal(compacted.Bytes(), &res)
-	ind, _ := json.MarshalIndent(res, "", "  ")
+	ind, _ := json.Marshal(res, jsontext.WithIndent("  "), json.Deterministic(true))
 	fmt.Println(string(ind))
 	// Output:
 	// {

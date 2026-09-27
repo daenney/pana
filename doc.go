@@ -61,12 +61,12 @@
 //
 // For any proprety, you'll either have:
 //   - GetXXX and SetXXX for single-valued properties. These will accept and
-//     return strings or [encoding/json.RawMessage].
+//     return strings or [encoding/json/jsontext.Value].
 //   - GetXXX and AddXXX for multi-valued properties. Get will return an
 //     [iter.Seq], and Add will be variadic. Add appends so can be called
 //     multiple times too.
 //
-// Most value properties return [encoding/json.RawMessage]. You can look at the
+// Most value properties return [encoding/json/jsontext.Value]. You can look at the
 // JSON-LD context definition to determine what the type of the value should be.
 // This will also be part of the vocabulary documentation for the property
 // you're retrieving. However, remember that this is not enforced, so even if a

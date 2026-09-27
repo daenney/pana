@@ -1,7 +1,7 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
 	"iter"
 	"time"
 
@@ -258,7 +258,7 @@ func (a *Activity) AddTo(ids ...string) *Activity {
 }
 
 // See [Object.GetPublished].
-func (a *Activity) GetPublished() json.RawMessage {
+func (a *Activity) GetPublished() jsontext.Value {
 	return (*Object)(a).GetPublished()
 }
 
@@ -269,7 +269,7 @@ func (a *Activity) SetPublished(v time.Time) *Activity {
 }
 
 // See [Object.SetPublishedRaw].
-func (a *Activity) SetPublishedRaw(v json.RawMessage) *Activity {
+func (a *Activity) SetPublishedRaw(v jsontext.Value) *Activity {
 	(*Object)(a).SetPublishedRaw(v)
 	return a
 }

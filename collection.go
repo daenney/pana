@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -67,7 +68,7 @@ func (c *Collection) SetFirst(p CollectionPage) *Collection {
 // GetTotalItems returns the value from [as.TotalItems]
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems.
-func (c *Collection) GetTotalItems() json.RawMessage {
+func (c *Collection) GetTotalItems() jsontext.Value {
 	if nodes := (*ld.Node)(c).GetNodes(as.TotalItems); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -83,7 +84,7 @@ func (c *Collection) SetTotalItems(v uint) *Collection {
 }
 
 // SetTotalItemsRaw sets the value in [as.TotalItems].
-func (c *Collection) SetTotalItemsRaw(v json.RawMessage) *Collection {
+func (c *Collection) SetTotalItemsRaw(v jsontext.Value) *Collection {
 	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return c
 }

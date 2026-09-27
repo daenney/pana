@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -41,7 +42,7 @@ func (pv *PropertyValue) AddName(ls ...Localised) *PropertyValue {
 }
 
 // GetValue returns the value in [schema.Value].
-func (pv *PropertyValue) GetValue() json.RawMessage {
+func (pv *PropertyValue) GetValue() jsontext.Value {
 	if nodes := (*ld.Node)(pv).GetNodes(schema.Value); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -57,7 +58,7 @@ func (pv *PropertyValue) SetValue(v string) *PropertyValue {
 }
 
 // SetValueRaw sets the value in [schema.Value].
-func (pv *PropertyValue) SetValueRaw(v json.RawMessage) *PropertyValue {
+func (pv *PropertyValue) SetValueRaw(v jsontext.Value) *PropertyValue {
 	(*ld.Node)(pv).SetNodes(schema.Value, ld.Node{Value: v})
 	return pv
 }

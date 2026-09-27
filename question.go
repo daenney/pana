@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 	"time"
 
@@ -49,7 +50,7 @@ func (q *Question) SetType() {
 // GetVotersCount returns the value in [mastodon.VotersCount].
 //
 // See https://docs.joinmastodon.org/spec/activitypub/#toot.
-func (q *Question) GetVotersCount() json.RawMessage {
+func (q *Question) GetVotersCount() jsontext.Value {
 	if nodes := (*ld.Node)(q).GetNodes(mastodon.VotersCount); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -65,7 +66,7 @@ func (q *Question) SetVotersCount(v uint64) *Question {
 }
 
 // SetVotersCountRaw sets the value in [mastodon.VotersCount].
-func (q *Question) SetVotersCountRaw(v json.RawMessage) *Question {
+func (q *Question) SetVotersCountRaw(v jsontext.Value) *Question {
 	(*ld.Node)(q).SetNodes(mastodon.VotersCount, ld.Node{Value: v})
 	return q
 }
@@ -73,7 +74,7 @@ func (q *Question) SetVotersCountRaw(v json.RawMessage) *Question {
 // GetEndTime returns the value in [as.EndTime].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
-func (q *Question) GetEndTime() json.RawMessage {
+func (q *Question) GetEndTime() jsontext.Value {
 	if nodes := (*ld.Node)(q).GetNodes(as.EndTime); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -89,13 +90,13 @@ func (q *Question) SetEndTime(v time.Time) *Question {
 }
 
 // SetEndTimeRaw sets the value in [as.EndTime].
-func (q *Question) SetEndTimeRaw(v json.RawMessage) *Question {
+func (q *Question) SetEndTimeRaw(v jsontext.Value) *Question {
 	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }
 
 // See [Object.GetSensitive].
-func (q *Question) GetSensitive() json.RawMessage {
+func (q *Question) GetSensitive() jsontext.Value {
 	return (*Object)(q).GetSensitive()
 }
 
@@ -106,13 +107,13 @@ func (q *Question) SetSensitive(v bool) *Question {
 }
 
 // See [Object.SetSensitiveRaw].
-func (q *Question) SetSensitiveRaw(v json.RawMessage) *Question {
+func (q *Question) SetSensitiveRaw(v jsontext.Value) *Question {
 	(*Object)(q).SetSensitiveRaw(v)
 	return q
 }
 
 // See [Object.GetUpdated].
-func (q *Question) GetUpdated() json.RawMessage {
+func (q *Question) GetUpdated() jsontext.Value {
 	return (*Object)(q).GetUpdated()
 }
 
@@ -123,7 +124,7 @@ func (q *Question) SetUpdated(v time.Time) *Question {
 }
 
 // See [Object.SetUpdatedRaw].
-func (q *Question) SetUpdatedRaw(v json.RawMessage) *Question {
+func (q *Question) SetUpdatedRaw(v jsontext.Value) *Question {
 	(*Object)(q).SetUpdatedRaw(v)
 	return q
 }
@@ -169,7 +170,7 @@ func (q *Question) AddOneOf(chs ...Choice) *Question {
 // GetClosed returns the value in [as.Closed].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-closed.
-func (q *Question) GetClosed() json.RawMessage {
+func (q *Question) GetClosed() jsontext.Value {
 	if nodes := (*ld.Node)(q).GetNodes(as.Closed); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -185,7 +186,7 @@ func (q *Question) SetClosed(v time.Time) *Question {
 }
 
 // SetClosedRawsets the value in [as.Closed].
-func (q *Question) SetClosedRaw(v json.RawMessage) *Question {
+func (q *Question) SetClosedRaw(v jsontext.Value) *Question {
 	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }

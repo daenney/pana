@@ -1,7 +1,7 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -38,20 +38,20 @@ func (a *Audio) SetType(typ string) *Audio {
 }
 
 // GetDuration returns the value in [as.Duration].
-func (a *Audio) GetDuration() json.RawMessage {
+func (a *Audio) GetDuration() jsontext.Value {
 	return (*Document)(a).GetDuration()
 }
 
 // SetDuration sets the value in [as.Duration].
 //
 // See [Document.SetDuration] for the format.
-func (a *Audio) SetDuration(v json.RawMessage) *Audio {
+func (a *Audio) SetDuration(v jsontext.Value) *Audio {
 	(*Document)(a).SetDuration(v)
 	return a
 }
 
 // GetMediaType returns the value in [as.MediaType].
-func (a *Audio) GetMediaType() json.RawMessage {
+func (a *Audio) GetMediaType() jsontext.Value {
 	return (*Document)(a).GetMediaType()
 }
 
@@ -62,7 +62,7 @@ func (a *Audio) SetMediaType(v string) *Audio {
 }
 
 // SetMediaTypeRaw sets the value in [as.MediaType].
-func (a *Audio) SetMediaTypeRaw(v json.RawMessage) *Audio {
+func (a *Audio) SetMediaTypeRaw(v jsontext.Value) *Audio {
 	(*Document)(a).SetMediaTypeRaw(v)
 	return a
 }

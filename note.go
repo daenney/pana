@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 	"time"
 
@@ -138,12 +139,12 @@ func (n *Note) SetConversation(id string) *Note {
 // GetDirectMessage returns the value in [litepub.DirectMessage].
 //
 // It returns false if the value is absent.
-func (n *Note) GetDirectMessage() json.RawMessage {
+func (n *Note) GetDirectMessage() jsontext.Value {
 	if nodes := (*ld.Node)(n).GetNodes(litepub.DirectMessage); len(nodes) == 1 {
 		return nodes[0].Value
 	}
 
-	return json.RawMessage(`false`)
+	return jsontext.Value(`false`)
 }
 
 // SetDirectMessage sets a boolean in [litepub.DirectMessage].
@@ -154,7 +155,7 @@ func (n *Note) SetDirectMessage(v bool) *Note {
 }
 
 // SetDirectMessageRaw sets the value in [litepub.DirectMessage].
-func (n *Note) SetDirectMessageRaw(v json.RawMessage) *Note {
+func (n *Note) SetDirectMessageRaw(v jsontext.Value) *Note {
 	(*ld.Node)(n).SetNodes(litepub.DirectMessage, ld.Node{Value: v})
 	return n
 }
@@ -193,7 +194,7 @@ func (n *Note) SetLikes(c Collection) *Note {
 }
 
 // See [Object.GetPublished].
-func (n *Note) GetPublished() json.RawMessage {
+func (n *Note) GetPublished() jsontext.Value {
 	return (*Object)(n).GetPublished()
 }
 
@@ -204,7 +205,7 @@ func (n *Note) SetPublished(v time.Time) *Note {
 }
 
 // See [Object.SetPublishedRaw].
-func (n *Note) SetPublishedRaw(v json.RawMessage) *Note {
+func (n *Note) SetPublishedRaw(v jsontext.Value) *Note {
 	(*Object)(n).SetPublishedRaw(v)
 	return n
 }
@@ -221,7 +222,7 @@ func (n *Note) SetReplies(c Collection) *Note {
 }
 
 // See [Object.GetSensitive].
-func (n *Note) GetSensitive() json.RawMessage {
+func (n *Note) GetSensitive() jsontext.Value {
 	return (*Object)(n).GetSensitive()
 }
 
@@ -232,7 +233,7 @@ func (n *Note) SetSensitive(v bool) *Note {
 }
 
 // See [Object.SetSensitiveRaw].
-func (n *Note) SetSensitiveRaw(v json.RawMessage) *Note {
+func (n *Note) SetSensitiveRaw(v jsontext.Value) *Note {
 	(*Object)(n).SetSensitiveRaw(v)
 	return n
 }
@@ -282,7 +283,7 @@ func (n *Note) AddTo(ids ...string) *Note {
 }
 
 // See [Object.GetUpdated].
-func (n *Note) GetUpdated() json.RawMessage {
+func (n *Note) GetUpdated() jsontext.Value {
 	return (*Object)(n).GetUpdated()
 }
 
@@ -293,7 +294,7 @@ func (n *Note) SetUpdated(v time.Time) *Note {
 }
 
 // See [Object.SetUpdatedRaw].
-func (n *Note) SetUpdatedRaw(v json.RawMessage) *Note {
+func (n *Note) SetUpdatedRaw(v jsontext.Value) *Note {
 	(*Object)(n).SetUpdatedRaw(v)
 	return n
 }

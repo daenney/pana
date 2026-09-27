@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -40,7 +41,7 @@ func (d *Document) SetType(typ string) *Document {
 }
 
 // GetBlurhash returns the value in [mastodon.Blurhash].
-func (d *Document) GetBlurhash() json.RawMessage {
+func (d *Document) GetBlurhash() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(mastodon.Blurhash); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -49,13 +50,13 @@ func (d *Document) GetBlurhash() json.RawMessage {
 }
 
 // SetBlurhash sets the value in [mastodon.Blurhash].
-func (d *Document) SetBlurhash(v json.RawMessage) *Document {
+func (d *Document) SetBlurhash(v jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(mastodon.Blurhash, ld.Node{Value: v})
 	return d
 }
 
 // GetDuration returns the value in [as.Duration].
-func (d *Document) GetDuration() json.RawMessage {
+func (d *Document) GetDuration() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(as.Duration); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -67,17 +68,17 @@ func (d *Document) GetDuration() json.RawMessage {
 //
 // This value is the XML duration format, which cannot currently be serialised
 // from a [time.Duration]. See https://github.com/golang/go/issues/71631.
-func (d *Document) SetDuration(v json.RawMessage) *Document {
+func (d *Document) SetDuration(v jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(as.Duration, ld.Node{Value: v, Type: []string{xmlschema.TypeDuration}})
 	return d
 }
 
 // GetFocalPoint returns the value in [mastodon.FocalPoint].
-func (d *Document) GetFocalPoint() []json.RawMessage {
+func (d *Document) GetFocalPoint() []jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(mastodon.FocalPoint); len(nodes) == 1 && len(nodes[0].List) == 2 {
 		x := nodes[0].List[0].Value
 		y := nodes[0].List[1].Value
-		return []json.RawMessage{x, y}
+		return []jsontext.Value{x, y}
 	}
 
 	return nil
@@ -94,7 +95,7 @@ func (d *Document) SetFocalPoint(x, y float32) *Document {
 }
 
 // SetFocalPointRaw sets the value in [mastodon.FocalPoint].
-func (d *Document) SetFocalPointRaw(x, y json.RawMessage) *Document {
+func (d *Document) SetFocalPointRaw(x, y jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(mastodon.FocalPoint, ld.Node{
 		List: []ld.Node{{Value: x}, {Value: y}},
 	})
@@ -102,7 +103,7 @@ func (d *Document) SetFocalPointRaw(x, y json.RawMessage) *Document {
 }
 
 // GetHeight returns the value in [as.Height].
-func (d *Document) GetHeight() json.RawMessage {
+func (d *Document) GetHeight() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(as.Height); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -118,13 +119,13 @@ func (d *Document) SetHeight(v uint64) *Document {
 }
 
 // SetHeightRaw sets the value in [as.Height].
-func (d *Document) SetHeightRaw(v json.RawMessage) *Document {
+func (d *Document) SetHeightRaw(v jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }
 
 // GetMediaType returns the value in [as.MediaType].
-func (d *Document) GetMediaType() json.RawMessage {
+func (d *Document) GetMediaType() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(as.MediaType); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -140,7 +141,7 @@ func (d *Document) SetMediaType(v string) *Document {
 }
 
 // SetMediaTypeRaw sets the value in [as.MediaType].
-func (d *Document) SetMediaTypeRaw(v json.RawMessage) *Document {
+func (d *Document) SetMediaTypeRaw(v jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(as.MediaType, ld.Node{Value: v})
 	return d
 }
@@ -157,7 +158,7 @@ func (d *Document) AddName(ls ...Localised) *Document {
 }
 
 // GetWidth returns the value in [as.Width].
-func (d *Document) GetWidth() json.RawMessage {
+func (d *Document) GetWidth() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(as.Width); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -173,7 +174,7 @@ func (d *Document) SetWidth(v uint64) *Document {
 }
 
 // SetWidthRaw sets the value in [as.Width].
-func (d *Document) SetWidthRaw(v json.RawMessage) *Document {
+func (d *Document) SetWidthRaw(v jsontext.Value) *Document {
 	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: v, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }

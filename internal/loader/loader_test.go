@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	ld "sourcery.dny.nu/longdistance"
-	"sourcery.dny.nu/pana/internal/json"
+	"sourcery.dny.nu/pana/internal/jsonutil"
 	"sourcery.dny.nu/pana/internal/loader"
 	"sourcery.dny.nu/pana/vocab/litepub"
 	"sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -20,7 +20,7 @@ func TestLoaderURL(t *testing.T) {
 		t.Fatalf("expected no error, got: %s", err)
 	}
 
-	ctxdoc, err := json.GetContextDocument(activitystreams.ContextDocument)
+	ctxdoc, err := jsonutil.GetContextDocument(activitystreams.ContextDocument)
 	if err != nil {
 		t.Fatalf("expected document to have @context, got: %s", err)
 	}
@@ -37,7 +37,7 @@ func TestLoaderPath(t *testing.T) {
 		t.Fatalf("expected no error, got: %s", err)
 	}
 
-	ctxdoc, err := json.GetContextDocument(litepub.ContextDocument0dot1)
+	ctxdoc, err := jsonutil.GetContextDocument(litepub.ContextDocument0dot1)
 	if err != nil {
 		t.Fatalf("expected document to have @context, got: %s", err)
 	}

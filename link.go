@@ -1,7 +1,8 @@
 package pana
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -81,7 +82,7 @@ func (l *Link) AddName(ls ...Localised) *Link {
 }
 
 // GetHreflang returns the value from [as.Hreflang].
-func (l *Link) GetHreflang() json.RawMessage {
+func (l *Link) GetHreflang() jsontext.Value {
 	if nodes := (*ld.Node)(l).GetNodes(as.Hreflang); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -96,13 +97,13 @@ func (l *Link) SetHreflang(hreflang string) *Link {
 }
 
 // SetHreflangRaw sets a value in [as.Hreflang].
-func (l *Link) SetHreflanRaw(hreflang json.RawMessage) *Link {
+func (l *Link) SetHreflanRaw(hreflang jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.Hreflang, ld.Node{Value: hreflang})
 	return l
 }
 
 // GetMediaType returns the value from [as.MediaType].
-func (l *Link) GetMediaType() json.RawMessage {
+func (l *Link) GetMediaType() jsontext.Value {
 	if nodes := (*ld.Node)(l).GetNodes(as.MediaType); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -117,13 +118,13 @@ func (l *Link) SetMediaType(mediaType string) *Link {
 }
 
 // SetMediaTypeRaw sets a value in [as.MediaType].
-func (l *Link) SetMediaTypeRaw(mediaType json.RawMessage) *Link {
+func (l *Link) SetMediaTypeRaw(mediaType jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.MediaType, ld.Node{Value: mediaType})
 	return l
 }
 
 // GetRel returns the value from [as.Rel].
-func (l *Link) GetRel() json.RawMessage {
+func (l *Link) GetRel() jsontext.Value {
 	if nodes := (*ld.Node)(l).GetNodes(as.Rel); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -138,13 +139,13 @@ func (l *Link) SetRel(rel string) *Link {
 }
 
 // SetRelRaw sets a value in [as.Rel].
-func (l *Link) SetRelRaw(rel json.RawMessage) *Link {
+func (l *Link) SetRelRaw(rel jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.Rel, ld.Node{Value: rel})
 	return l
 }
 
 // GetHeight returns the value from [as.Height].
-func (l *Link) GetHeight() json.RawMessage {
+func (l *Link) GetHeight() jsontext.Value {
 	if nodes := (*ld.Node)(l).GetNodes(as.Height); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -159,13 +160,13 @@ func (l *Link) SetHeight(height uint64) *Link {
 }
 
 // SetHeightRaw sets a value in [as.Height].
-func (l *Link) SetHeightRaw(height json.RawMessage) *Link {
+func (l *Link) SetHeightRaw(height jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: height, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
 
 // GetWidth returns the value from [as.Width].
-func (l *Link) GetWidth() json.RawMessage {
+func (l *Link) GetWidth() jsontext.Value {
 	if nodes := (*ld.Node)(l).GetNodes(as.Width); len(nodes) == 1 {
 		return nodes[0].Value
 	}
@@ -180,7 +181,7 @@ func (l *Link) SetWidth(width uint64) *Link {
 }
 
 // SetWidthRaw sets a value in [as.Width].
-func (l *Link) SetWidthRaw(width json.RawMessage) *Link {
+func (l *Link) SetWidthRaw(width jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: width, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
