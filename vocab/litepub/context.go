@@ -54,7 +54,7 @@ func TermDefForIRI(iri string) map[string]any {
 			ld.KeywordType: ld.KeywordID,
 		}
 	default:
-		res[Term(iri)] = CompactIRI
+		res[Term(iri)] = CompactIRI(iri)
 	}
 
 	return res
