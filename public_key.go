@@ -1,6 +1,9 @@
 package pana
 
 import (
+	"encoding/json/jsontext"
+	"encoding/json/v2"
+
 	ld "sourcery.dny.nu/longdistance"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
@@ -12,7 +15,7 @@ type PublicKey ld.Node
 func NewPublicKey() *PublicKey {
 	return &PublicKey{
 		Properties: make(ld.Properties, 2),
-		Type:       []string{secv1.PublicKey},
+		Type:       []string{secv1.TypeCryptographicKey},
 	}
 }
 
@@ -34,6 +37,9 @@ func (pk *PublicKey) SetID(id string) *PublicKey {
 
 // GetType returns the first type on the [ld.Node].
 func (pk *PublicKey) GetType() string {
+	if pk.Type == nil {
+		return ""
+	}
 	return pk.Type[0]
 }
 
@@ -59,16 +65,23 @@ func (pk *PublicKey) SetOwner(id string) *PublicKey {
 }
 
 // GetPublicKeyPEM returns the value in [secv1.PublicKeyPem].
-func (pk *PublicKey) GetPublicKeyPEM() string {
+func (pk *PublicKey) GetPublicKeyPEM() jsontext.Value {
 	if nodes := (*ld.Node)(pk).GetNodes(secv1.PublicKeyPem); len(nodes) == 1 {
-		return string(nodes[0].Value)
+		return nodes[0].Value
 	}
 
-	return ""
+	return nil
 }
 
-// SetPublicKeyPEM sets the value in [secv1.PublicKeyPem].
+// SetPublicKeyPEM sets the string in [secv1.PublicKeyPem].
 func (pk *PublicKey) SetPublicKeyPEM(v string) *PublicKey {
-	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: []byte(v)})
+	data, _ := json.Marshal(v)
+	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: data})
+	return pk
+}
+
+// SetPublicKeyPEMRaw sets the value in [secv1.PublicKeyPem].
+func (pk *PublicKey) SetPublicKeyPEMRaw(v jsontext.Value) *PublicKey {
+	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: v})
 	return pk
 }
