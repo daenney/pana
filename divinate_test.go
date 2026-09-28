@@ -11,7 +11,6 @@ import (
 	"sourcery.dny.nu/pana/vocab/schema"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 	"sourcery.dny.nu/pana/vocab/w3/ldp"
-	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
 )
 
@@ -131,12 +130,11 @@ func TestDivinate(t *testing.T) {
 				as.IRI,
 				secv1.IRI,
 				map[string]any{
-					as.Term(
-						as.ManuallyApprovesFollowers,
-					): as.CompactIRI(as.ManuallyApprovesFollowers),
+					as.Term(as.ManuallyApprovesFollowers): map[string]any{
+						ld.KeywordID: as.CompactIRI(as.ManuallyApprovesFollowers),
+					},
 					as.Term(as.Sensitive): map[string]any{
-						ld.KeywordID:   as.CompactIRI(as.Sensitive),
-						ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
+						ld.KeywordID: as.CompactIRI(as.Sensitive),
 					},
 					schema.Prefix: schema.Namespace,
 					schema.Term(

@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	ld "sourcery.dny.nu/longdistance"
-	"sourcery.dny.nu/pana/vocab/w3/xmlschema"
 )
 
 //go:embed context.jsonld
@@ -384,11 +383,10 @@ func TermDefForIRI(iri string) any {
 	short := CompactIRI(iri)
 
 	switch iri {
-	case Sensitive:
+	case Sensitive, ManuallyApprovesFollowers:
 		return map[string]any{
 			term: map[string]any{
-				ld.KeywordID:   short,
-				ld.KeywordType: xmlschema.CompactIRI(xmlschema.TypeBoolean),
+				ld.KeywordID: short,
 			}}
 	case MovedTo:
 		return map[string]any{
@@ -396,7 +394,7 @@ func TermDefForIRI(iri string) any {
 				ld.KeywordID:   short,
 				ld.KeywordType: ld.KeywordID,
 			}}
-	case TypeHashtag, ManuallyApprovesFollowers:
+	case TypeHashtag:
 		return map[string]any{
 			term: short,
 		}

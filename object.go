@@ -352,7 +352,7 @@ func (o *Object) GetSensitive() jsontext.Value {
 // SetSensitive sets the boolean in [as.Sensitive].
 func (o *Object) SetSensitive(v bool) *Object {
 	data, _ := json.Marshal(v)
-	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: data, Type: []string{xmlschema.TypeBoolean}})
+	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: data})
 	return o
 }
 
