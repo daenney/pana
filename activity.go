@@ -6,7 +6,6 @@ import (
 	"time"
 
 	ld "sourcery.dny.nu/longdistance"
-	"sourcery.dny.nu/pana/vocab/litepub"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
@@ -74,14 +73,6 @@ type Delete = Activity
 // NewDelete initialises a new Delete activity with [as.TypeDelete].
 func NewDelete() *Delete {
 	return (*Delete)(NewActivity().SetType(as.TypeDelete))
-}
-
-type EmojiReact = Activity
-
-// NewEmojiReact initialises a new EmojiReact activity with
-// [litepub.TypeEmojiReact].
-func NewEmojiReact() *EmojiReact {
-	return (*EmojiReact)(NewActivity().SetType(litepub.TypeEmojiReact))
 }
 
 type Follow = Activity

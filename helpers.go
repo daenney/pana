@@ -9,8 +9,8 @@ import (
 type node interface {
 	ld.Node | Object | Article | Activity | Note | Collection | CollectionPage |
 		Tombstone | Instrument | Document | Audio | Icon | Link | LinkTag |
-		PublicKey | Profile | Relationship | Actor | Any | Page | Place | Emoji |
-		Endpoints | Localised | Question | Choice | Event | PropertyValue
+		PublicKey | Actor | Any | Page | Place | Emoji | Endpoints | Localised |
+		Question | Choice | Event | PropertyValue
 }
 
 func toReference(ids ...string) []ld.Node {
