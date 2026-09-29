@@ -96,6 +96,13 @@ func NewMove() *Move {
 	return (*Move)(NewActivity().SetType(as.TypeMove))
 }
 
+type Reject = Activity
+
+// NewReject initialises a new Reject activity with [as.TypeReject].
+func NewReject() *Reject {
+	return (*Reject)(NewActivity().SetType(as.TypeReject))
+}
+
 type Remove = Activity
 
 // NewRemove initialises a new Remove activity with [as.TypeRemove].
