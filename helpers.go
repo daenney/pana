@@ -1,9 +1,11 @@
 package pana
 
 import (
+	"iter"
 	"slices"
 
 	ld "sourcery.dny.nu/longdistance"
+	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
 type node interface {
@@ -37,4 +39,43 @@ func addNodes[T node](n *ld.Node, property string, ins []T) {
 	}
 
 	n.Properties[property] = res
+}
+
+func getCollectionItem(n *ld.Node, ordered bool) iter.Seq[*Any] {
+	return func(yield func(*Any) bool) {
+		nodes := n.GetNodes(as.Items)
+		if ordered && len(nodes) > 0 {
+			nodes = nodes[0].List
+		}
+
+		for _, n := range nodes {
+			if !yield((*Any)(&n)) {
+				return
+			}
+		}
+	}
+}
+
+func addCollectionItem[T node](n *ld.Node, ordered bool, items []T) {
+	if len(items) == 0 {
+		return
+	}
+
+	if !ordered {
+		addNodes(n, as.Items, items)
+		return
+	}
+
+	nodes := n.Properties[as.Items]
+	if len(nodes) == 0 {
+		nodes = []ld.Node{{List: make([]ld.Node, 0, len(items))}}
+	}
+
+	list := slices.Grow(nodes[0].List, len(items))
+	for _, item := range items {
+		list = append(list, ld.Node(item))
+	}
+
+	nodes[0].List = list
+	n.Properties[as.Items] = nodes
 }

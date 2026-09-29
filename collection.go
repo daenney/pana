@@ -3,6 +3,8 @@ package pana
 import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"iter"
+	"slices"
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -23,9 +25,27 @@ func NewCollection() *Collection {
 	}
 }
 
+// NewOrderedCollection initialises a new Collection with
+// [as.TypeOrderedCollection].
+func NewOrderedCollection() *Collection {
+	return &Collection{
+		Properties: make(ld.Properties),
+		Type:       []string{as.TypeOrderedCollection},
+	}
+}
+
 // Build finalises the Collection.
 func (c *Collection) Build() Collection {
 	return *c
+}
+
+// IsOrdered checks if this is an ordered collection.
+func (c *Collection) IsOrdered() bool {
+	if c == nil {
+		return false
+	}
+
+	return slices.Contains(c.Type, as.TypeOrderedCollection)
 }
 
 // See [Object.GetID].
@@ -62,6 +82,21 @@ func (c *Collection) GetFirst() *CollectionPage {
 // SetFirst sets the [CollectionPage] in [as.First].
 func (c *Collection) SetFirst(p CollectionPage) *Collection {
 	(*ld.Node)(c).SetNodes(as.First, ld.Node(p))
+	return c
+}
+
+// GetItems returns the values in [as.Items].
+//
+// This returns Any because a collection can contain objects of any type.
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items.
+func (c *Collection) GetItems() iter.Seq[*Any] {
+	return getCollectionItem((*ld.Node)(c), c.IsOrdered())
+}
+
+// AddItems appends items to [as.Items].
+func (c *Collection) AddItems[T node](items ...T) *Collection {
+	addCollectionItem((*ld.Node)(c), c.IsOrdered(), items)
 	return c
 }
 
@@ -103,9 +138,27 @@ func NewCollectionPage() *CollectionPage {
 	}
 }
 
+// NewOrderedCollectionPage initialises a new CollectionPage with
+// [as.TypeOrderedCollectionPage].
+func NewOrderedCollectionPage() *CollectionPage {
+	return &CollectionPage{
+		Properties: make(ld.Properties),
+		Type:       []string{as.TypeOrderedCollectionPage},
+	}
+}
+
 // Build finalises the CollectionPage.
 func (p *CollectionPage) Build() CollectionPage {
 	return *p
+}
+
+// IsOrdered checks if this is an ordered collection page.
+func (p *CollectionPage) IsOrdered() bool {
+	if p == nil {
+		return false
+	}
+
+	return slices.Contains(p.Type, as.TypeOrderedCollectionPage)
 }
 
 // See [Object.GetType].
@@ -116,6 +169,21 @@ func (p *CollectionPage) GetType() string {
 // See [Object.SetType].
 func (p *CollectionPage) SetType(typ string) *CollectionPage {
 	(*Object)(p).SetType(typ)
+	return p
+}
+
+// GetItems returns the values in [as.Items].
+//
+// This returns Any because a collection page can contain objects of any type.
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items.
+func (p *CollectionPage) GetItems() iter.Seq[*Any] {
+	return getCollectionItem((*ld.Node)(p), p.IsOrdered())
+}
+
+// AddItems appends items to [as.Items].
+func (p *CollectionPage) AddItems[T node](items ...T) *CollectionPage {
+	addCollectionItem((*ld.Node)(p), p.IsOrdered(), items)
 	return p
 }
 
