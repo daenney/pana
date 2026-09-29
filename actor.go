@@ -106,37 +106,25 @@ func (a *Actor) AddSummary(ls ...Localised) *Actor {
 	return a
 }
 
-// GetIcon returns the [Image] in [as.Icon].
-//
-// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-icon.
-func (a *Actor) GetIcon() *Image {
-	if nodes := (*ld.Node)(a).GetNodes(as.Icon); len(nodes) == 1 {
-		return (*Image)(&nodes[0])
-	}
-
-	return nil
+// See [Object.GetIcon].
+func (a *Actor) GetIcon() *Icon {
+	return (*Object)(a).GetIcon()
 }
 
-// SetIcon sets the [Image] in [as.Icon].
-func (a *Actor) SetIcon(img Image) *Actor {
-	(*ld.Node)(a).SetNodes(as.Icon, ld.Node(img))
+// See [Object.SetIcon].
+func (a *Actor) SetIcon(img Icon) *Actor {
+	(*Object)(a).SetIcon(img)
 	return a
 }
 
-// GetImage returns the [Image] in [as.Image].
-//
-// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-image.
+// See [Object.GetImage].
 func (a *Actor) GetImage() *Image {
-	if nodes := (*ld.Node)(a).GetNodes(as.Image); len(nodes) == 1 {
-		return (*Image)(&nodes[0])
-	}
-
-	return nil
+	return (*Object)(a).GetImage()
 }
 
-// SetImage sets the [Image] in [as.Image].
+// See [Object.SetImage].
 func (a *Actor) SetImage(img Image) *Actor {
-	(*ld.Node)(a).SetNodes(as.Image, ld.Node(img))
+	(*Object)(a).SetImage(img)
 	return a
 }
 

@@ -124,25 +124,20 @@ func (d *Document) SetHeightRaw(v jsontext.Value) *Document {
 	return d
 }
 
-// GetMediaType returns the value in [as.MediaType].
+// See [Object.GetMediaType].
 func (d *Document) GetMediaType() jsontext.Value {
-	if nodes := (*ld.Node)(d).GetNodes(as.MediaType); len(nodes) == 1 {
-		return nodes[0].Value
-	}
-
-	return nil
+	return (*Object)(d).GetMediaType()
 }
 
-// SetMediaType sets the string in [as.MediaType].
+// See [Object.SetMediaType].
 func (d *Document) SetMediaType(v string) *Document {
-	data, _ := json.Marshal(v)
-	(*ld.Node)(d).SetNodes(as.MediaType, ld.Node{Value: data})
+	(*Object)(d).SetMediaType(v)
 	return d
 }
 
-// SetMediaTypeRaw sets the value in [as.MediaType].
+// See [Object.SetMediaTypeRaw].
 func (d *Document) SetMediaTypeRaw(v jsontext.Value) *Document {
-	(*ld.Node)(d).SetNodes(as.MediaType, ld.Node{Value: v})
+	(*Object)(d).SetMediaTypeRaw(v)
 	return d
 }
 

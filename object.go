@@ -451,3 +451,86 @@ func (o *Object) SetShares(c Collection) *Object {
 	(*ld.Node)(o).SetNodes(as.Shares, ld.Node(c))
 	return o
 }
+
+// GetEndTime returns the value in [as.EndTime].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
+func (o *Object) GetEndTime() jsontext.Value {
+	if nodes := (*ld.Node)(o).GetNodes(as.EndTime); len(nodes) == 1 {
+		return nodes[0].Value
+	}
+
+	return nil
+}
+
+// SetEndTime sets the [time.Time] in [as.EndTime].
+func (o *Object) SetEndTime(v time.Time) *Object {
+	data, _ := json.Marshal(v.Format(time.RFC3339))
+	(*ld.Node)(o).SetNodes(as.EndTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// SetEndTimeRaw sets the value in [as.EndTime].
+func (o *Object) SetEndTimeRaw(v jsontext.Value) *Object {
+	(*ld.Node)(o).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// GetIcon returns the [Icon] in [as.Icon].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-icon.
+func (o *Object) GetIcon() *Icon {
+	if nodes := (*ld.Node)(o).GetNodes(as.Icon); len(nodes) == 1 {
+		return (*Icon)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetIcon sets the [Icon] in [as.Icon].
+func (o *Object) SetIcon(img Icon) *Object {
+	(*ld.Node)(o).SetNodes(as.Icon, ld.Node(img))
+	return o
+}
+
+// GetImage returns the [Image] in [as.Image].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-image.
+func (o *Object) GetImage() *Image {
+	if nodes := (*ld.Node)(o).GetNodes(as.Image); len(nodes) == 1 {
+		return (*Image)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetImage sets the [Image] in [as.Image].
+func (o *Object) SetImage(img Image) *Object {
+	(*ld.Node)(o).SetNodes(as.Image, ld.Node(img))
+	return o
+}
+
+// GetMediaType returns the value in [as.MediaType].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-mediatype.
+func (o *Object) GetMediaType() jsontext.Value {
+	if nodes := (*ld.Node)(o).GetNodes(as.MediaType); len(nodes) == 1 {
+		return nodes[0].Value
+	}
+
+	return nil
+}
+
+// SetMediaType sets the string in [as.MediaType].
+func (o *Object) SetMediaType(v string) *Object {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(o).SetNodes(as.MediaType, ld.Node{Value: data})
+	return o
+}
+
+// SetMediaTypeRaw sets the value in [as.MediaType].
+func (o *Object) SetMediaTypeRaw(v jsontext.Value) *Object {
+	(*ld.Node)(o).SetNodes(as.MediaType, ld.Node{Value: v})
+	return o
+}
+

@@ -71,27 +71,20 @@ func (q *Question) SetVotersCountRaw(v jsontext.Value) *Question {
 	return q
 }
 
-// GetEndTime returns the value in [as.EndTime].
-//
-// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
+// See [Object.GetEndTime].
 func (q *Question) GetEndTime() jsontext.Value {
-	if nodes := (*ld.Node)(q).GetNodes(as.EndTime); len(nodes) == 1 {
-		return nodes[0].Value
-	}
-
-	return nil
+	return (*Object)(q).GetEndTime()
 }
 
-// SetEndTime sets the [time.Time] in [as.EndTime].
+// See [Object.SetEndTime].
 func (q *Question) SetEndTime(v time.Time) *Question {
-	data, _ := json.Marshal(v.Format(time.RFC3339))
-	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	(*Object)(q).SetEndTime(v)
 	return q
 }
 
-// SetEndTimeRaw sets the value in [as.EndTime].
+// See [Object.SetEndTimeRaw].
 func (q *Question) SetEndTimeRaw(v jsontext.Value) *Question {
-	(*ld.Node)(q).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
+	(*Object)(q).SetEndTimeRaw(v)
 	return q
 }
 
