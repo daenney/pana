@@ -249,6 +249,23 @@ func (n *Note) SetShares(c Collection) *Note {
 	return n
 }
 
+// GetSource returns the [Source] in [as.Source].
+//
+// See https://www.w3.org/TR/activitypub/#source-property.
+func (n *Note) GetSource() *Source {
+	if nodes := (*ld.Node)(n).GetNodes(as.Source); len(nodes) == 1 {
+		return (*Source)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetSource sets the [Source] in [as.Source].
+func (n *Note) SetSource(s Source) *Note {
+	(*ld.Node)(n).SetNodes(as.Source, ld.Node(s))
+	return n
+}
+
 // See [Object.GetSummary].
 func (n *Note) GetSummary() iter.Seq[*Localised] {
 	return (*Object)(n).GetSummary()

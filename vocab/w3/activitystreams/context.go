@@ -199,7 +199,7 @@ const (
 	// SignClientKey is an IRI, either as a string or as an object with an id
 	// property.
 	SignClientKey = Namespace + "signClientKey"
-	// Source is a string.
+	// Source is an object with a content and mediaType property.
 	Source = Namespace + "source"
 	// StartIndex is an xml:nonNegativeInteger, an "infinite size" integer. The
 	// XML specification requires you to at least accept numbers with up to 16

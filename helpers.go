@@ -12,7 +12,7 @@ type node interface {
 	ld.Node | Object | Article | Activity | Note | Collection | CollectionPage |
 		Tombstone | Instrument | Document | Audio | Icon | Link | LinkTag |
 		PublicKey | Actor | Any | Page | Place | Emoji | Endpoints | Localised |
-		Question | Choice | Event | PropertyValue
+		Question | Choice | Event | PropertyValue | Source
 }
 
 func toReference(ids ...string) []ld.Node {
