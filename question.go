@@ -37,6 +37,17 @@ func (q *Question) IsMultipleChoice() bool {
 	return Has(q, as.AnyOf)
 }
 
+// See [Object.GetID].
+func (q *Question) GetID() string {
+	return (*Object)(q).GetID()
+}
+
+// See [Object.SetID].
+func (q *Question) SetID(id string) *Question {
+	(*Object)(q).SetID(id)
+	return q
+}
+
 // See [Object.GetType].
 func (q *Question) GetType() string {
 	return (*Object)(q).GetType()
@@ -192,6 +203,188 @@ func (q *Question) GetName() iter.Seq[*Localised] {
 // See [Object.AddName].
 func (q *Question) AddName(ls ...Localised) *Question {
 	(*Object)(q).AddName(ls...)
+	return q
+}
+
+// See [Object.GetAtomURI].
+func (q *Question) GetAtomURI() string {
+	return (*Object)(q).GetAtomURI()
+}
+
+// See [Object.SetAtomURI].
+func (q *Question) SetAtomURI(uri string) *Question {
+	(*Object)(q).SetAtomURI(uri)
+	return q
+}
+
+// See [Object.GetAttachment].
+func (q *Question) GetAttachment() iter.Seq[*Any] {
+	return (*Object)(q).GetAttachment()
+}
+
+// See [Object.AddAttachment].
+func (q *Question) AddAttachment[T Document | Audio | PropertyValue | ld.Node](atch ...T) *Question {
+	(*Object)(q).AddAttachment(atch...)
+	return q
+}
+
+// See [Object.GetAttributedTo].
+func (q *Question) GetAttributedTo() iter.Seq[string] {
+	return (*Object)(q).GetAttributedTo()
+}
+
+// See [Object.AddAttributedTo].
+func (q *Question) AddAttributedTo(ids ...string) *Question {
+	(*Object)(q).AddAttributedTo(ids...)
+	return q
+}
+
+// See [Object.GetCc].
+func (q *Question) GetCc() iter.Seq[string] {
+	return (*Object)(q).GetCc()
+}
+
+// See [Object.AddCc].
+func (q *Question) AddCc(ids ...string) *Question {
+	(*Object)(q).AddCc(ids...)
+	return q
+}
+
+// See [Object.GetContent].
+func (q *Question) GetContent() iter.Seq[*Localised] {
+	return (*Object)(q).GetContent()
+}
+
+// See [Object.AddContent].
+func (q *Question) AddContent(ls ...Localised) *Question {
+	(*Object)(q).AddContent(ls...)
+	return q
+}
+
+// See [Object.GetConversation].
+func (q *Question) GetConversation() string {
+	return (*Object)(q).GetConversation()
+}
+
+// See [Object.SetConversation].
+func (q *Question) SetConversation(id string) *Question {
+	(*Object)(q).SetConversation(id)
+	return q
+}
+
+// See [Object.GetInReplyTo].
+func (q *Question) GetInReplyTo() string {
+	return (*Object)(q).GetInReplyTo()
+}
+
+// See [Object.SetInReplyTo].
+func (q *Question) SetInReplyTo(id string) *Question {
+	(*Object)(q).SetInReplyTo(id)
+	return q
+}
+
+// See [Object.GetInReplyToAtomURI].
+func (q *Question) GetInReplyToAtomURI() string {
+	return (*Object)(q).GetInReplyToAtomURI()
+}
+
+// See [Object.SetInReplyToAtomURI].
+func (q *Question) SetInReplyToAtomURI(id string) *Question {
+	(*Object)(q).SetInReplyToAtomURI(id)
+	return q
+}
+
+// See [Object.GetLikes].
+func (q *Question) GetLikes() *Collection {
+	return (*Object)(q).GetLikes()
+}
+
+// See [Object.SetLikes].
+func (q *Question) SetLikes(c Collection) *Question {
+	(*Object)(q).SetLikes(c)
+	return q
+}
+
+// See [Object.GetPublished].
+func (q *Question) GetPublished() jsontext.Value {
+	return (*Object)(q).GetPublished()
+}
+
+// See [Object.SetPublished].
+func (q *Question) SetPublished(v time.Time) *Question {
+	(*Object)(q).SetPublished(v)
+	return q
+}
+
+// See [Object.SetPublishedRaw].
+func (q *Question) SetPublishedRaw(v jsontext.Value) *Question {
+	(*Object)(q).SetPublishedRaw(v)
+	return q
+}
+
+// See [Object.GetReplies].
+func (q *Question) GetReplies() *Collection {
+	return (*Object)(q).GetReplies()
+}
+
+// See [Object.SetReplies].
+func (q *Question) SetReplies(c Collection) *Question {
+	(*Object)(q).SetReplies(c)
+	return q
+}
+
+// See [Object.GetShares].
+func (q *Question) GetShares() *Collection {
+	return (*Object)(q).GetShares()
+}
+
+// See [Object.SetShares].
+func (q *Question) SetShares(c Collection) *Question {
+	(*Object)(q).SetShares(c)
+	return q
+}
+
+// See [Object.GetSummary].
+func (q *Question) GetSummary() iter.Seq[*Localised] {
+	return (*Object)(q).GetSummary()
+}
+
+// See [Object.AddSummary].
+func (q *Question) AddSummary(ls ...Localised) *Question {
+	(*Object)(q).AddSummary(ls...)
+	return q
+}
+
+// See [Object.GetTag].
+func (q *Question) GetTag() iter.Seq[*Any] {
+	return (*Object)(q).GetTag()
+}
+
+// See [Object.AddTag].
+func (q *Question) AddTag[T LinkTag | Emoji | ld.Node](tags ...T) *Question {
+	(*Object)(q).AddTag(tags...)
+	return q
+}
+
+// See [Object.GetTo].
+func (q *Question) GetTo() iter.Seq[string] {
+	return (*Object)(q).GetTo()
+}
+
+// See [Object.AddTo].
+func (q *Question) AddTo(ids ...string) *Question {
+	(*Object)(q).AddTo(ids...)
+	return q
+}
+
+// See [Object.GetURL].
+func (q *Question) GetURL() string {
+	return (*Object)(q).GetURL()
+}
+
+// See [Object.SetURL].
+func (q *Question) SetURL(url string) *Question {
+	(*Object)(q).SetURL(url)
 	return q
 }
 
