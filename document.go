@@ -152,6 +152,23 @@ func (d *Document) AddName(ls ...Localised) *Document {
 	return d
 }
 
+// See [Object.GetSensitive].
+func (d *Document) GetSensitive() jsontext.Value {
+	return (*Object)(d).GetSensitive()
+}
+
+// See [Object.SetSensitive].
+func (d *Document) SetSensitive(v bool) *Document {
+	(*Object)(d).SetSensitive(v)
+	return d
+}
+
+// See [Object.SetSensitiveRaw].
+func (d *Document) SetSensitiveRaw(v jsontext.Value) *Document {
+	(*Object)(d).SetSensitiveRaw(v)
+	return d
+}
+
 // GetWidth returns the value in [as.Width].
 func (d *Document) GetWidth() jsontext.Value {
 	if nodes := (*ld.Node)(d).GetNodes(as.Width); len(nodes) == 1 {
