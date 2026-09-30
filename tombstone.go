@@ -57,3 +57,14 @@ func (t *Tombstone) SetFormerType(id string) *Tombstone {
 	(*ld.Node)(t).SetNodes(as.FormerType, ld.Node{ID: id})
 	return t
 }
+
+// See [Object.GetAtomURI].
+func (t *Tombstone) GetAtomURI() string {
+	return (*Object)(t).GetAtomURI()
+}
+
+// See [Object.SetAtomURI].
+func (t *Tombstone) SetAtomURI(uri string) *Tombstone {
+	(*Object)(t).SetAtomURI(uri)
+	return t
+}
