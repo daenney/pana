@@ -422,3 +422,104 @@ func (a *Actor) SetURL(url string) *Actor {
 	(*Object)(a).SetURL(url)
 	return a
 }
+
+// See [Object.GetAttachment].
+func (a *Actor) GetAttachment() iter.Seq[*Any] {
+	return (*Object)(a).GetAttachment()
+}
+
+// See [Object.AddAttachment].
+func (a *Actor) AddAttachment[T Document | Audio | PropertyValue | ld.Node](atch ...T) *Actor {
+	(*Object)(a).AddAttachment(atch...)
+	return a
+}
+
+// See [Object.GetTag].
+func (a *Actor) GetTag() iter.Seq[*Any] {
+	return (*Object)(a).GetTag()
+}
+
+// See [Object.AddTag].
+func (a *Actor) AddTag[T LinkTag | Emoji | ld.Node](tags ...T) *Actor {
+	(*Object)(a).AddTag(tags...)
+	return a
+}
+
+// GetAlsoKnownAs returns the IDs in [as.AlsoKnownAs].
+//
+// See https://swicg.github.io/miscellany/#alsoKnownAs.
+func (a *Actor) GetAlsoKnownAs() iter.Seq[string] {
+	return func(yield func(string) bool) {
+		for _, n := range (*ld.Node)(a).GetNodes(as.AlsoKnownAs) {
+			if !yield(n.ID) {
+				return
+			}
+		}
+	}
+}
+
+// AddAlsoKnownAs appends IDs to [as.AlsoKnownAs].
+func (a *Actor) AddAlsoKnownAs(ids ...string) *Actor {
+	(*ld.Node)(a).AddNodes(as.AlsoKnownAs, toReference(ids...)...)
+	return a
+}
+
+// GetAttributionDomains returns the domains in [mastodon.AttributionDomains].
+//
+// See https://docs.joinmastodon.org/spec/activitypub/#toot.
+func (a *Actor) GetAttributionDomains() iter.Seq[string] {
+	return func(yield func(string) bool) {
+		for _, n := range (*ld.Node)(a).GetNodes(mastodon.AttributionDomains) {
+			if !yield(n.ID) {
+				return
+			}
+		}
+	}
+}
+
+// AddAttributionDomains appends domains to [mastodon.AttributionDomains].
+func (a *Actor) AddAttributionDomains(domains ...string) *Actor {
+	(*ld.Node)(a).AddNodes(mastodon.AttributionDomains, toReference(domains...)...)
+	return a
+}
+
+// GetSharedInbox returns the URL in [as.SharedInbox].
+func (a *Actor) GetSharedInbox() string {
+	if nodes := (*ld.Node)(a).GetNodes(as.SharedInbox); len(nodes) == 1 {
+		return nodes[0].ID
+	}
+
+	return ""
+}
+
+// SetSharedInbox sets the URL in [as.SharedInbox].
+func (a *Actor) SetSharedInbox(url string) *Actor {
+	(*ld.Node)(a).SetNodes(as.SharedInbox, ld.Node{ID: url})
+	return a
+}
+
+// GetSuspended returns the value in [mastodon.Suspended].
+//
+// It returns false if the property was absent.
+//
+// See https://docs.joinmastodon.org/spec/activitypub/#toot.
+func (a *Actor) GetSuspended() jsontext.Value {
+	if nodes := (*ld.Node)(a).GetNodes(mastodon.Suspended); len(nodes) == 1 {
+		return nodes[0].Value
+	}
+
+	return jsontext.Value(`false`)
+}
+
+// SetSuspended sets the boolean in [mastodon.Suspended].
+func (a *Actor) SetSuspended(v bool) *Actor {
+	data, _ := json.Marshal(v)
+	(*ld.Node)(a).SetNodes(mastodon.Suspended, ld.Node{Value: data})
+	return a
+}
+
+// SetSuspendedRaw sets the value in [mastodon.Suspended].
+func (a *Actor) SetSuspendedRaw(v jsontext.Value) *Actor {
+	(*ld.Node)(a).SetNodes(mastodon.Suspended, ld.Node{Value: v})
+	return a
+}
