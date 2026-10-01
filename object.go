@@ -608,3 +608,26 @@ func (o *Object) SetPreview[T node](preview T) *Object {
 	return o
 }
 
+// GetStartTime returns the value in [as.StartTime].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-starttime.
+func (o *Object) GetStartTime() jsontext.Value {
+	if nodes := (*ld.Node)(o).GetNodes(as.StartTime); len(nodes) == 1 {
+		return nodes[0].Value
+	}
+
+	return nil
+}
+
+// SetStartTime sets the [time.Time] in [as.StartTime].
+func (o *Object) SetStartTime(v time.Time) *Object {
+	data, _ := json.Marshal(v.Format(time.RFC3339))
+	(*ld.Node)(o).SetNodes(as.StartTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// SetStartTimeRaw sets the value in [as.StartTime].
+func (o *Object) SetStartTimeRaw(v jsontext.Value) *Object {
+	(*ld.Node)(o).SetNodes(as.StartTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
