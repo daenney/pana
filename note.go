@@ -44,8 +44,9 @@ func (n *Note) GetType() string {
 }
 
 // SetType sets the type to [as.Note].
-func (n *Note) SetType() {
-	n.Type = []string{as.TypeNote}
+func (n *Note) SetType() *Note {
+	(*Object)(n).SetType(as.TypeNote)
+	return n
 }
 
 // See [Activity.GetActor].

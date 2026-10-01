@@ -54,8 +54,9 @@ func (q *Question) GetType() string {
 }
 
 // SetType sets the type to [as.TypeQuestion].
-func (q *Question) SetType() {
-	q.Type = []string{as.TypeQuestion}
+func (q *Question) SetType() *Question {
+	(*Object)(q).SetType(as.TypeQuestion)
+	return q
 }
 
 // GetVotersCount returns the value in [mastodon.VotersCount].
