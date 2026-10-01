@@ -97,7 +97,7 @@ func (l *Link) SetHreflang(hreflang string) *Link {
 }
 
 // SetHreflangRaw sets a value in [as.Hreflang].
-func (l *Link) SetHreflanRaw(hreflang jsontext.Value) *Link {
+func (l *Link) SetHreflangRaw(hreflang jsontext.Value) *Link {
 	(*ld.Node)(l).SetNodes(as.Hreflang, ld.Node{Value: hreflang})
 	return l
 }

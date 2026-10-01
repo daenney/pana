@@ -26,7 +26,7 @@ const (
 	Description       = Namespace + "description"
 	Email             = Namespace + "email"
 	FamilyName        = Namespace + "familyName"
-	GivenNaame        = Namespace + "givenName"
+	GivenName         = Namespace + "givenName"
 	Image             = Namespace + "image"
 	Member            = Namespace + "member"
 	MemberOf          = Namespace + "memberOf"
