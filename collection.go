@@ -112,7 +112,7 @@ func (c *Collection) GetTotalItems() jsontext.Value {
 }
 
 // SetTotalItems sets the value in [as.TotalItems].
-func (c *Collection) SetTotalItems(v uint) *Collection {
+func (c *Collection) SetTotalItems(v uint64) *Collection {
 	data, _ := json.Marshal(v)
 	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return c
