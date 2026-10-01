@@ -452,6 +452,25 @@ func (o *Object) SetShares(c Collection) *Object {
 	return o
 }
 
+// GetAudience returns the audience IDs from [as.Audience].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-audience.
+func (o *Object) GetAudience() iter.Seq[string] {
+	return func(yield func(string) bool) {
+		for _, n := range (*ld.Node)(o).GetNodes(as.Audience) {
+			if !yield(n.ID) {
+				return
+			}
+		}
+	}
+}
+
+// AddAudience appends audience IDs to [as.Audience].
+func (o *Object) AddAudience(ids ...string) *Object {
+	(*ld.Node)(o).AddNodes(as.Audience, toReference(ids...)...)
+	return o
+}
+
 // GetEndTime returns the value in [as.EndTime].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
@@ -473,6 +492,25 @@ func (o *Object) SetEndTime(v time.Time) *Object {
 // SetEndTimeRaw sets the value in [as.EndTime].
 func (o *Object) SetEndTimeRaw(v jsontext.Value) *Object {
 	(*ld.Node)(o).SetNodes(as.EndTime, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
+	return o
+}
+
+// GetGenerator returns the generator in [as.Generator].
+//
+// This returns [Any] because it can be of many different types.
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator.
+func (o *Object) GetGenerator() *Any {
+	if nodes := (*ld.Node)(o).GetNodes(as.Generator); len(nodes) == 1 {
+		return (*Any)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetGenerator sets the generator in [as.Generator].
+func (o *Object) SetGenerator[T node](gen T) *Object {
+	(*ld.Node)(o).SetNodes(as.Generator, ld.Node(gen))
 	return o
 }
 
@@ -510,6 +548,23 @@ func (o *Object) SetImage(img Image) *Object {
 	return o
 }
 
+// GetLocation returns the [Place] in [as.Location].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-location.
+func (o *Object) GetLocation() *Place {
+	if nodes := (*ld.Node)(o).GetNodes(as.Location); len(nodes) == 1 {
+		return (*Place)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetLocation sets the [Place] in [as.Location].
+func (o *Object) SetLocation(p Place) *Object {
+	(*ld.Node)(o).SetNodes(as.Location, ld.Node(p))
+	return o
+}
+
 // GetMediaType returns the value in [as.MediaType].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-mediatype.
@@ -531,6 +586,25 @@ func (o *Object) SetMediaType(v string) *Object {
 // SetMediaTypeRaw sets the value in [as.MediaType].
 func (o *Object) SetMediaTypeRaw(v jsontext.Value) *Object {
 	(*ld.Node)(o).SetNodes(as.MediaType, ld.Node{Value: v})
+	return o
+}
+
+// GetPreview returns the preview in [as.Preview].
+//
+// This returns [Any] because it can be of many different types.
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-preview.
+func (o *Object) GetPreview() *Any {
+	if nodes := (*ld.Node)(o).GetNodes(as.Preview); len(nodes) == 1 {
+		return (*Any)(&nodes[0])
+	}
+
+	return nil
+}
+
+// SetPreview sets the preview in [as.Preview].
+func (o *Object) SetPreview[T node](preview T) *Object {
+	(*ld.Node)(o).SetNodes(as.Preview, ld.Node(preview))
 	return o
 }
 
