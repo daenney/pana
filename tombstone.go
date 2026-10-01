@@ -45,7 +45,7 @@ func (t *Tombstone) SetType(id string) *Tombstone {
 
 // Returns the type in [as.FormerType].
 func (t *Tombstone) GetFormerType() string {
-	if nodes := (*ld.Node)(t).GetNodes(as.FormerType); len(nodes) != 0 {
+	if nodes := (*ld.Node)(t).GetNodes(as.FormerType); len(nodes) == 1 {
 		return nodes[0].ID
 	}
 
