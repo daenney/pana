@@ -170,8 +170,12 @@ func ValidateContext(ctx *ld.Context) bool {
 				continue
 			}
 
-			short := secv1.Term(def.IRI)
-			if term != short {
+			// expires is an alias for expiration.
+			if term == "expires" && def.IRI == secv1.Expiration {
+				continue
+			}
+
+			if term != secv1.Term(def.IRI) {
 				return false
 			}
 		}
