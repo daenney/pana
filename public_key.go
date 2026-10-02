@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 
 	ld "sourcery.dny.nu/longdistance"
 	secv1 "sourcery.dny.nu/pana/vocab/w3id/securityv1"
@@ -75,7 +74,7 @@ func (pk *PublicKey) GetPublicKeyPEM() jsontext.Value {
 
 // SetPublicKeyPEM sets the string in [secv1.PublicKeyPem].
 func (pk *PublicKey) SetPublicKeyPEM(v string) *PublicKey {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pk).SetNodes(secv1.PublicKeyPem, ld.Node{Value: data})
 	return pk
 }

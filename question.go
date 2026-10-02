@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 	"time"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -72,7 +72,7 @@ func (q *Question) GetVotersCount() jsontext.Value {
 
 // SetVotersCount sets the number in [mastodon.VotersCount].
 func (q *Question) SetVotersCount(v uint64) *Question {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendUint(nil, v, 10)
 	(*ld.Node)(q).SetNodes(mastodon.VotersCount, ld.Node{Value: data})
 	return q
 }
@@ -185,7 +185,7 @@ func (q *Question) GetClosed() jsontext.Value {
 
 // SetClosed sets the [time.Time] in [as.Closed].
 func (q *Question) SetClosed(v time.Time) *Question {
-	data, _ := json.Marshal(v.Format(time.RFC3339))
+	data, _ := jsontext.AppendQuote(nil, v.Format(time.RFC3339))
 	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
 	return q
 }

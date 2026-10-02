@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 	"time"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -150,7 +150,7 @@ func (n *Note) GetDirectMessage() jsontext.Value {
 
 // SetDirectMessage sets a boolean in [litepub.DirectMessage].
 func (n *Note) SetDirectMessage(v bool) *Note {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(n).SetNodes(litepub.DirectMessage, ld.Node{Value: data})
 	return n
 }

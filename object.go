@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 	"time"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -158,7 +158,7 @@ func (o *Object) GetPublished() jsontext.Value {
 
 // SetPublished sets a [time.Time] in [as.Published].
 func (o *Object) SetPublished(dt time.Time) *Object {
-	data, _ := json.Marshal(dt.Format(time.RFC3339))
+	data, _ := jsontext.AppendQuote(nil, dt.Format(time.RFC3339))
 	(*ld.Node)(o).SetNodes(as.Published, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
@@ -351,7 +351,7 @@ func (o *Object) GetSensitive() jsontext.Value {
 
 // SetSensitive sets the boolean in [as.Sensitive].
 func (o *Object) SetSensitive(v bool) *Object {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(o).SetNodes(as.Sensitive, ld.Node{Value: data})
 	return o
 }
@@ -390,7 +390,7 @@ func (o *Object) GetUpdated() jsontext.Value {
 
 // SetUpdated sets the [time.Time] in [as.Updated].
 func (o *Object) SetUpdated(v time.Time) *Object {
-	data, _ := json.Marshal(v.Format(time.RFC3339))
+	data, _ := jsontext.AppendQuote(nil, v.Format(time.RFC3339))
 	(*ld.Node)(o).SetNodes(as.Updated, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
@@ -484,7 +484,7 @@ func (o *Object) GetEndTime() jsontext.Value {
 
 // SetEndTime sets the [time.Time] in [as.EndTime].
 func (o *Object) SetEndTime(v time.Time) *Object {
-	data, _ := json.Marshal(v.Format(time.RFC3339))
+	data, _ := jsontext.AppendQuote(nil, v.Format(time.RFC3339))
 	(*ld.Node)(o).SetNodes(as.EndTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }
@@ -578,7 +578,7 @@ func (o *Object) GetMediaType() jsontext.Value {
 
 // SetMediaType sets the string in [as.MediaType].
 func (o *Object) SetMediaType(v string) *Object {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(o).SetNodes(as.MediaType, ld.Node{Value: data})
 	return o
 }
@@ -621,7 +621,7 @@ func (o *Object) GetStartTime() jsontext.Value {
 
 // SetStartTime sets the [time.Time] in [as.StartTime].
 func (o *Object) SetStartTime(v time.Time) *Object {
-	data, _ := json.Marshal(v.Format(time.RFC3339))
+	data, _ := jsontext.AppendQuote(nil, v.Format(time.RFC3339))
 	(*ld.Node)(o).SetNodes(as.StartTime, ld.Node{Value: data, Type: []string{xmlschema.TypeDateTime}})
 	return o
 }

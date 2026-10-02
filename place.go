@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -77,7 +76,7 @@ func (p *Place) GetLatitude() jsontext.Value {
 
 // SetLatitude sets the value in [as.Latitude].
 func (p *Place) SetLatitude(v float32) *Place {
-	data, _ := json.Marshal(v)
+	data := jsontext.AppendFloat(nil, float64(v), 32)
 	(*ld.Node)(p).SetNodes(as.Latitude, ld.Node{Value: data, Type: []string{xmlschema.TypeFloat}})
 	return p
 }
@@ -101,7 +100,7 @@ func (p *Place) GetLongitude() jsontext.Value {
 
 // SetLongitude sets the value in [as.Longitude].
 func (p *Place) SetLongitude(v float32) *Place {
-	data, _ := json.Marshal(v)
+	data := jsontext.AppendFloat(nil, float64(v), 32)
 	(*ld.Node)(p).SetNodes(as.Longitude, ld.Node{Value: data, Type: []string{xmlschema.TypeFloat}})
 	return p
 }

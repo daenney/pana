@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -91,7 +91,7 @@ func (l *Link) GetHreflang() jsontext.Value {
 
 // SetHreflang sets the string in [as.Hreflang].
 func (l *Link) SetHreflang(hreflang string) *Link {
-	data, _ := json.Marshal(hreflang)
+	data, _ := jsontext.AppendQuote(nil, hreflang)
 	(*ld.Node)(l).SetNodes(as.Hreflang, ld.Node{Value: data})
 	return l
 }
@@ -112,7 +112,7 @@ func (l *Link) GetMediaType() jsontext.Value {
 
 // SetMediaType sets a string in [as.MediaType].
 func (l *Link) SetMediaType(mediaType string) *Link {
-	data, _ := json.Marshal(mediaType)
+	data, _ := jsontext.AppendQuote(nil, mediaType)
 	(*ld.Node)(l).SetNodes(as.MediaType, ld.Node{Value: data})
 	return l
 }
@@ -133,7 +133,7 @@ func (l *Link) GetRel() jsontext.Value {
 
 // SetRel sets a string in [as.Rel].
 func (l *Link) SetRel(rel string) *Link {
-	data, _ := json.Marshal(rel)
+	data, _ := jsontext.AppendQuote(nil, rel)
 	(*ld.Node)(l).SetNodes(as.Rel, ld.Node{Value: data})
 	return l
 }
@@ -154,7 +154,7 @@ func (l *Link) GetHeight() jsontext.Value {
 
 // SetHeight sets the height in [as.Height].
 func (l *Link) SetHeight(height uint64) *Link {
-	data, _ := json.Marshal(height)
+	data := strconv.AppendUint(nil, height, 10)
 	(*ld.Node)(l).SetNodes(as.Height, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }
@@ -175,7 +175,7 @@ func (l *Link) GetWidth() jsontext.Value {
 
 // SetWidth sets the width in [as.Width].
 func (l *Link) SetWidth(width uint64) *Link {
-	data, _ := json.Marshal(width)
+	data := strconv.AppendUint(nil, width, 10)
 	(*ld.Node)(l).SetNodes(as.Width, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return l
 }

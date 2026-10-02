@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/mastodon"
@@ -86,8 +86,8 @@ func (d *Document) GetFocalPoint() []jsontext.Value {
 
 // SetFocalPoint sets the X and Y coordinates in [mastodon.FocalPoint].
 func (d *Document) SetFocalPoint(x, y float32) *Document {
-	dx, _ := json.Marshal(x)
-	dy, _ := json.Marshal(y)
+	dx := jsontext.AppendFloat(nil, float64(x), 32)
+	dy := jsontext.AppendFloat(nil, float64(y), 32)
 	(*ld.Node)(d).SetNodes(mastodon.FocalPoint, ld.Node{
 		List: []ld.Node{{Value: dx}, {Value: dy}},
 	})
@@ -113,7 +113,7 @@ func (d *Document) GetHeight() jsontext.Value {
 
 // SetHeight sets the height in [as.Height].
 func (d *Document) SetHeight(v uint64) *Document {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendUint(nil, v, 10)
 	(*ld.Node)(d).SetNodes(as.Height, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }
@@ -180,7 +180,7 @@ func (d *Document) GetWidth() jsontext.Value {
 
 // SetWidth sets the width in [as.Width].
 func (d *Document) SetWidth(v uint64) *Document {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendUint(nil, v, 10)
 	(*ld.Node)(d).SetNodes(as.Width, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return d
 }

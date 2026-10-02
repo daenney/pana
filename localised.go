@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 
 	ld "sourcery.dny.nu/longdistance"
 )
@@ -49,7 +48,7 @@ func (l *Localised) GetValue() jsontext.Value {
 // string was directly constructed from a []byte. Use
 // [unicode/utf8.ValidString] to check for that if necessary.
 func (l *Localised) SetValue(value string) *Localised {
-	data, _ := json.Marshal(value)
+	data, _ := jsontext.AppendQuote(nil, value)
 	l.Value = data
 	return l
 }

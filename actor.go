@@ -2,8 +2,8 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
+	"strconv"
 	"time"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -95,7 +95,7 @@ func (a *Actor) GetMemorial() jsontext.Value {
 
 // SetMemorial sets the boolean in [mastodon.Memorial].
 func (a *Actor) SetMemorial(v bool) *Actor {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(a).SetNodes(mastodon.Memorial, ld.Node{Value: data})
 	return a
 }
@@ -155,7 +155,7 @@ func (a *Actor) GetDiscoverable() jsontext.Value {
 
 // SetDiscoverable sets the value in [mastodon.Discoverable].
 func (a *Actor) SetDiscoverable(v bool) *Actor {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(a).SetNodes(mastodon.Discoverable, ld.Node{Value: data})
 	return a
 }
@@ -312,7 +312,7 @@ func (a *Actor) GetIndexable() jsontext.Value {
 
 // SetIndexable sets the boolean in [mastodon.Indexable].
 func (a *Actor) SetIndexable(v bool) *Actor {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(a).SetNodes(mastodon.Indexable, ld.Node{Value: data})
 	return a
 }
@@ -338,7 +338,7 @@ func (a *Actor) GetManuallyApprovesFollowers() jsontext.Value {
 // SetManuallyApprovesFollowers sets the boolean in
 // [as.ManuallyApprovesFollowers].
 func (a *Actor) SetManuallyApprovesFollowers(v bool) *Actor {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(a).SetNodes(as.ManuallyApprovesFollowers, ld.Node{Value: data})
 	return a
 }
@@ -380,7 +380,7 @@ func (a *Actor) GetPreferredUsername() jsontext.Value {
 
 // SetPreferredUsername sets the string in [as.PreferredUsername].
 func (a *Actor) SetPreferredUsername(v string) *Actor {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(a).SetNodes(as.PreferredUsername, ld.Node{Value: data})
 	return a
 }
@@ -524,7 +524,7 @@ func (a *Actor) GetSuspended() jsontext.Value {
 
 // SetSuspended sets the boolean in [mastodon.Suspended].
 func (a *Actor) SetSuspended(v bool) *Actor {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendBool(nil, v)
 	(*ld.Node)(a).SetNodes(mastodon.Suspended, ld.Node{Value: data})
 	return a
 }

@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -52,7 +51,7 @@ func (s *Source) GetMediaType() jsontext.Value {
 
 // SetMediaType sets the string in [as.MediaType].
 func (s *Source) SetMediaType(v string) *Source {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(s).SetNodes(as.MediaType, ld.Node{Value: data})
 	return s
 }

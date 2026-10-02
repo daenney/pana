@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
 
 	ld "sourcery.dny.nu/longdistance"
@@ -52,7 +51,7 @@ func (pv *PropertyValue) GetValue() jsontext.Value {
 
 // SetValue sets the string in [schema.Value].
 func (pv *PropertyValue) SetValue(v string) *PropertyValue {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pv).SetNodes(schema.Value, ld.Node{Value: data})
 	return pv
 }

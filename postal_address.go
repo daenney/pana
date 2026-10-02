@@ -2,7 +2,6 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 
 	ld "sourcery.dny.nu/longdistance"
 	"sourcery.dny.nu/pana/vocab/schema"
@@ -40,7 +39,7 @@ func (pa *PostalAddress) GetAddressCountry() jsontext.Value {
 
 // SetAddressCountry sets the string in [schema.AddressCountry].
 func (pa *PostalAddress) SetAddressCountry(v string) *PostalAddress {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pa).SetNodes(schema.AddressCountry, ld.Node{Value: data})
 	return pa
 }
@@ -62,7 +61,7 @@ func (pa *PostalAddress) GetAddressLocality() jsontext.Value {
 
 // SetAddressLocality sets the string in [schema.AddressLocality].
 func (pa *PostalAddress) SetAddressLocality(v string) *PostalAddress {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pa).SetNodes(schema.AddressLocality, ld.Node{Value: data})
 	return pa
 }
@@ -84,7 +83,7 @@ func (pa *PostalAddress) GetAddressRegion() jsontext.Value {
 
 // SetAddressRegion sets the string in [schema.AddressRegion].
 func (pa *PostalAddress) SetAddressRegion(v string) *PostalAddress {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pa).SetNodes(schema.AddressRegion, ld.Node{Value: data})
 	return pa
 }
@@ -106,7 +105,7 @@ func (pa *PostalAddress) GetPostalCode() jsontext.Value {
 
 // SetPostalCode sets the string in [schema.PostalCode].
 func (pa *PostalAddress) SetPostalCode(v string) *PostalAddress {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pa).SetNodes(schema.PostalCode, ld.Node{Value: data})
 	return pa
 }
@@ -128,7 +127,7 @@ func (pa *PostalAddress) GetStreetAddress() jsontext.Value {
 
 // SetStreetAddress sets the string in [schema.StreetAddress].
 func (pa *PostalAddress) SetStreetAddress(v string) *PostalAddress {
-	data, _ := json.Marshal(v)
+	data, _ := jsontext.AppendQuote(nil, v)
 	(*ld.Node)(pa).SetNodes(schema.StreetAddress, ld.Node{Value: data})
 	return pa
 }

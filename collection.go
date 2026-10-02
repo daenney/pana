@@ -2,9 +2,9 @@ package pana
 
 import (
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"iter"
 	"slices"
+	"strconv"
 
 	ld "sourcery.dny.nu/longdistance"
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
@@ -113,7 +113,7 @@ func (c *Collection) GetTotalItems() jsontext.Value {
 
 // SetTotalItems sets the value in [as.TotalItems].
 func (c *Collection) SetTotalItems(v uint64) *Collection {
-	data, _ := json.Marshal(v)
+	data := strconv.AppendUint(nil, v, 10)
 	(*ld.Node)(c).SetNodes(as.TotalItems, ld.Node{Value: data, Type: []string{xmlschema.TypeNonNegativeInteger}})
 	return c
 }
