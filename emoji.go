@@ -10,6 +10,7 @@ import (
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
+// Emoji is the Mastodon Emoji type.
 type Emoji Object
 
 // NewEmoji initialises a new Emoji.

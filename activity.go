@@ -40,6 +40,7 @@ func NewAccept() *Accept {
 	return (*Accept)(NewActivity().SetType(as.TypeAccept))
 }
 
+// Add is the Add activity.
 type Add = Activity
 
 // NewAdd initialises a new Add activity with [as.TypeAdd].
@@ -47,6 +48,7 @@ func NewAdd() *Add {
 	return (*Add)(NewActivity().SetType(as.TypeAdd))
 }
 
+// Announce is the Announce activity.
 type Announce = Activity
 
 // NewAnnounce initialises a new Announce activity with [as.TypeAnnounce].
@@ -54,6 +56,7 @@ func NewAnnounce() *Announce {
 	return (*Announce)(NewActivity().SetType(as.TypeAnnounce))
 }
 
+// Block is the Block activity.
 type Block = Activity
 
 // NewBlock initialises a new Block activity with [as.TypeBlock].
@@ -61,6 +64,7 @@ func NewBlock() *Block {
 	return (*Block)(NewActivity().SetType(as.TypeBlock))
 }
 
+// Create is the Create activity.
 type Create = Activity
 
 // NewCreate initialises a new Create activity with [as.TypeCreate].
@@ -68,6 +72,7 @@ func NewCreate() *Create {
 	return NewActivity()
 }
 
+// Delete is the Delete activity.
 type Delete = Activity
 
 // NewDelete initialises a new Delete activity with [as.TypeDelete].
@@ -75,6 +80,7 @@ func NewDelete() *Delete {
 	return (*Delete)(NewActivity().SetType(as.TypeDelete))
 }
 
+// Follow is the Follow activity.
 type Follow = Activity
 
 // NewFollow initialises a new Follow activity with [as.TypeFollow].
@@ -82,6 +88,7 @@ func NewFollow() *Follow {
 	return (*Follow)(NewActivity().SetType(as.TypeFollow))
 }
 
+// Like is the Like activity.
 type Like = Activity
 
 // NewLike initialises a new Like activity with [as.TypeLike].
@@ -89,6 +96,7 @@ func NewLike() *Like {
 	return (*Like)(NewActivity().SetType(as.TypeLike))
 }
 
+// Move is the Move activity.
 type Move = Activity
 
 // NewMove initialises a new Move activity with [as.TypeMove].
@@ -96,6 +104,7 @@ func NewMove() *Move {
 	return (*Move)(NewActivity().SetType(as.TypeMove))
 }
 
+// Reject is the Reject activity.
 type Reject = Activity
 
 // NewReject initialises a new Reject activity with [as.TypeReject].
@@ -103,6 +112,7 @@ func NewReject() *Reject {
 	return (*Reject)(NewActivity().SetType(as.TypeReject))
 }
 
+// Remove is the Remove activity.
 type Remove = Activity
 
 // NewRemove initialises a new Remove activity with [as.TypeRemove].
@@ -110,6 +120,7 @@ func NewRemove() *Remove {
 	return (*Remove)(NewActivity().SetType(as.TypeRemove))
 }
 
+// Undo is the Undo activity.
 type Undo = Activity
 
 // NewUndo initialises a new Undo activity with [as.TypeUndo].
@@ -117,6 +128,7 @@ func NewUndo() *Undo {
 	return (*Undo)(NewActivity().SetType(as.TypeUndo))
 }
 
+// Update is the Update activity.
 type Update = Activity
 
 // NewUpdate initialises a new Update activity with [as.TypeUpdate].

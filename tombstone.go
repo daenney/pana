@@ -43,7 +43,9 @@ func (t *Tombstone) SetType(id string) *Tombstone {
 	return t
 }
 
-// Returns the type in [as.FormerType].
+// GetFormerType returns the type in [as.FormerType].
+//
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-formertype.
 func (t *Tombstone) GetFormerType() string {
 	if nodes := (*ld.Node)(t).GetNodes(as.FormerType); len(nodes) == 1 {
 		return nodes[0].ID
@@ -52,7 +54,7 @@ func (t *Tombstone) GetFormerType() string {
 	return ""
 }
 
-// Sets the type in [as.FormerType].
+// SetFormerType sets the type in [as.FormerType].
 func (t *Tombstone) SetFormerType(id string) *Tombstone {
 	(*ld.Node)(t).SetNodes(as.FormerType, ld.Node{ID: id})
 	return t

@@ -191,6 +191,7 @@ func (l *Link) SetWidthRaw(width jsontext.Value) *Link {
 // It's usually used to represent hashtags and mentions.
 type LinkTag Link
 
+// NewLinkTag initialises a new LinkTag.
 func NewLinkTag() *LinkTag {
 	return &LinkTag{
 		Properties: make(ld.Properties, 2),

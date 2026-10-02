@@ -9,6 +9,7 @@ import (
 // It shares all properties with [Document].
 type Image = Document
 
+// NewImage initialises a new Image.
 func NewImage() *Image {
 	return (*Image)(NewDocument().SetType(as.TypeImage))
 }

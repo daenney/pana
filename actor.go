@@ -18,11 +18,22 @@ import (
 // See https://www.w3.org/TR/activitypub/#actor-objects.
 type Actor Object
 
+// Application is the ActivityStreams Application type.
 type Application = Actor
+
+// Group is the ActivityStreams Group type.
 type Group = Actor
+
+// Organisation is the ActivityStreams Organization type.
 type Organisation = Actor
+
+// Organization is the ActivityStreams Organization type.
 type Organization = Organisation
+
+// Person is the ActivityStreams Person type.
 type Person = Actor
+
+// Service is the ActivityStreams Service type.
 type Service = Actor
 
 // NewActor initialises a new Actor.
