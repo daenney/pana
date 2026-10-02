@@ -266,7 +266,7 @@ func (a *Actor) SetEndpoints(ep Endpoints) *Actor {
 	return a
 }
 
-// GetIndox returns the URL in [ldp.Inbox].
+// GetInbox returns the URL in [ldp.Inbox].
 func (a *Actor) GetInbox() string {
 	if nodes := (*ld.Node)(a).GetNodes(ldp.Inbox); len(nodes) == 1 {
 		return nodes[0].ID
@@ -281,7 +281,7 @@ func (a *Actor) SetInbox(url string) *Actor {
 	return a
 }
 
-// GetIndox returns the URL in [as.Outbox].
+// GetOutbox returns the URL in [as.Outbox].
 func (a *Actor) GetOutbox() string {
 	if nodes := (*ld.Node)(a).GetNodes(as.Outbox); len(nodes) == 1 {
 		return nodes[0].ID
@@ -298,7 +298,7 @@ func (a *Actor) SetOutbox(url string) *Actor {
 
 // GetIndexable returns the value in [mastodon.Indexable].
 //
-// When discoverable is absent this returns false. We treat indexable as
+// When indexable is absent this returns false. We treat indexable as
 // opt-in, not opt-out.
 //
 // See https://docs.joinmastodon.org/spec/activitypub/#toot.
@@ -408,7 +408,7 @@ func (a *Actor) SetPublishedRaw(v jsontext.Value) *Actor {
 	return a
 }
 
-// GetPublickKey returns the [PublicKey] stored in [secv1.PublicKey].
+// GetPublicKey returns the [PublicKey] stored in [secv1.PublicKey].
 func (a *Actor) GetPublicKey() *PublicKey {
 	if nodes := (*ld.Node)(a).GetNodes(secv1.PublicKey); len(nodes) == 1 {
 		return (*PublicKey)(&nodes[0])

@@ -100,7 +100,7 @@ func (c *Collection) AddItems[T node](items ...T) *Collection {
 	return c
 }
 
-// GetTotalItems returns the value from [as.TotalItems]
+// GetTotalItems returns the value from [as.TotalItems].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems.
 func (c *Collection) GetTotalItems() jsontext.Value {

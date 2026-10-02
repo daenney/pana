@@ -10,9 +10,9 @@
 // request.
 //
 // Incoming messages can then be processed by calling [Processor.Unmarshal].
-// This will return an [Activity] that you can inspect and drill into.
+// This will return an [Any] that you can inspect and drill into.
 //
-// Call [Activity.GetType] to figure out what type of activity it is. With that
+// Call [Any.GetType] to figure out what type of activity it is. With that
 // information you can then cast the activity to a more specific type which will
 // add new getters and setters for the properties that are set on that activity.
 // You can use [Properties] to get a set of all properties set on the activity.
@@ -20,7 +20,7 @@
 //
 // If an activity has an [Object], you can do the same thing. Use
 // [Activity.GetObject] to get the object. An object may be a reference, or a
-// full object. You can check this with [Object.IsReference]. Once you have a
+// full object. You can check this with [IsReference]. Once you have a
 // full object, you can use [Object.GetType] to determine the type and cast it
 // to a more specific type. And you can use [Properties] to determine the
 // properties set on the object.
@@ -37,7 +37,7 @@
 //
 // # JSON-LD
 //
-// ActivityStreams uses JSON-LD for its JSON serialisatoin format. Pana doesn't
+// ActivityStreams uses JSON-LD for its JSON serialisation format. Pana doesn't
 // hide this from you, but aims to provide an API that makes working with this
 // simple enough so that you don't have to think about it.
 //
@@ -46,7 +46,7 @@
 // Form.
 //
 // In JSON-LD all properties, with the exception of 'id' / '@id', are arrays.
-// But if an array only has a single etnry it's typically reduced to its member.
+// But if an array only has a single entry it's typically reduced to its member.
 // This distinction is removed in expanded document form, but it makes the
 // resulting [Object] a bit verbose to handle.
 //
@@ -59,7 +59,7 @@
 // to guide you towards maximal interoperability with other, potentially JSON-LD
 // unaware, implementations.
 //
-// For any proprety, you'll either have:
+// For any property, you'll either have:
 //   - GetXXX and SetXXX for single-valued properties. These will accept and
 //     return strings or [encoding/json/jsontext.Value].
 //   - GetXXX and AddXXX for multi-valued properties. Get will return an

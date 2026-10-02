@@ -136,7 +136,7 @@ func (q *Question) SetUpdatedRaw(v jsontext.Value) *Question {
 
 // GetAnyOf gets the [Choice] in [as.AnyOf].
 //
-// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-oneof.
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-anyof.
 func (q *Question) GetAnyOf() iter.Seq[Choice] {
 	return func(yield func(Choice) bool) {
 		for _, n := range (*ld.Node)(q).GetNodes(as.AnyOf) {
@@ -190,7 +190,7 @@ func (q *Question) SetClosed(v time.Time) *Question {
 	return q
 }
 
-// SetClosedRawsets the value in [as.Closed].
+// SetClosedRaw sets the value in [as.Closed].
 func (q *Question) SetClosedRaw(v jsontext.Value) *Question {
 	(*ld.Node)(q).SetNodes(as.Closed, ld.Node{Value: v, Type: []string{xmlschema.TypeDateTime}})
 	return q

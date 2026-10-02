@@ -13,7 +13,7 @@ import (
 
 // Document is the ActivityStreams Document type.
 //
-// It shares all properties with [Link].
+// It shares all properties with [Object].
 type Document Object
 
 // NewDocument initialises a new Document.

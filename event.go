@@ -9,7 +9,7 @@ import (
 	as "sourcery.dny.nu/pana/vocab/w3/activitystreams"
 )
 
-// Event is the Activitystreams Event type.
+// Event is the ActivityStreams Event type.
 type Event Object
 
 // NewEvent initialises a new Event.

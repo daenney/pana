@@ -56,7 +56,7 @@ func (e *Emoji) GetName() iter.Seq[*Localised] {
 	return (*Object)(e).GetName()
 }
 
-// See [Object.SetName].
+// See [Object.AddName].
 func (e *Emoji) AddName(ls ...Localised) *Emoji {
 	(*Object)(e).AddName(ls...)
 	return e
@@ -79,7 +79,7 @@ func (e *Emoji) SetUpdatedRaw(v jsontext.Value) *Emoji {
 	return e
 }
 
-// GetIcon returns the [Image] in [as.Icon].
+// GetIcon returns the [Icon] in [as.Icon].
 //
 // See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-icon.
 func (e *Emoji) GetIcon() *Icon {
@@ -90,7 +90,7 @@ func (e *Emoji) GetIcon() *Icon {
 	return nil
 }
 
-// SetIcon sets the [Image] in [as.Icon].
+// SetIcon sets the [Icon] in [as.Icon].
 func (e *Emoji) SetIcon(img Icon) *Emoji {
 	(*ld.Node)(e).SetNodes(as.Icon, ld.Node(img))
 	return e

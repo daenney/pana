@@ -99,7 +99,7 @@ func (p *Processor) Marshal[T node](
 	)
 }
 
-// Unmarshal takes a JSON document and returns an [Activity] that represents it
+// Unmarshal takes a JSON document and returns an [Any] that represents it
 // using JSON-LD expanded document form.
 //
 // If the document was retrieved over HTTP, the request URL should be passed

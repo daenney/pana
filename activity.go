@@ -206,10 +206,10 @@ func (a *Activity) SetInstrument(in Instrument) *Activity {
 
 // GetObject returns the object in [as.Object].
 //
-// This returns [as.Any] because it can be of many different types. If the
+// This returns [Any] because it can be of many different types. If the
 // [Any.GetType] doesn't match any known type you can cast it to [Object].
 //
-// https://www.w3.org/TR/activitystreams-vocabulary/#dfn-object.
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-object.
 func (a *Activity) GetObject() *Any {
 	if nodes := (*ld.Node)(a).GetNodes(as.Object); len(nodes) == 1 {
 		return (*Any)(&nodes[0])

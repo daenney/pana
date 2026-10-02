@@ -241,7 +241,7 @@ func (o *Object) SetConversation(uri string) *Object {
 	return o
 }
 
-// GetAtomUri returns the URI in [ostatus.AtomURI].
+// GetAtomURI returns the URI in [ostatus.AtomURI].
 //
 // [tag URI]: https://datatracker.ietf.org/doc/html/rfc4151
 func (o *Object) GetAtomURI() string {
@@ -252,7 +252,7 @@ func (o *Object) GetAtomURI() string {
 	return ""
 }
 
-// SetAtomUri sets the URI in [ostatus.AtomURI].
+// SetAtomURI sets the URI in [ostatus.AtomURI].
 func (o *Object) SetAtomURI(uri string) *Object {
 	(*ld.Node)(o).SetNodes(ostatus.AtomURI, ld.Node{ID: uri})
 	return o
@@ -362,7 +362,7 @@ func (o *Object) SetSensitiveRaw(v jsontext.Value) *Object {
 	return o
 }
 
-// GetInReplyToAtomURI returns the URI in [ostatus.InReplyToAtomUri].
+// GetInReplyToAtomURI returns the URI in [ostatus.InReplyToAtomURI].
 func (o *Object) GetInReplyToAtomURI() string {
 	if nodes := (*ld.Node)(o).GetNodes(ostatus.InReplyToAtomURI); len(nodes) == 1 {
 		return nodes[0].ID
@@ -371,7 +371,7 @@ func (o *Object) GetInReplyToAtomURI() string {
 	return ""
 }
 
-// SetInReplyToAtomURI sets the URI in [ostatus.InReplyToAtomUri].
+// SetInReplyToAtomURI sets the URI in [ostatus.InReplyToAtomURI].
 func (o *Object) SetInReplyToAtomURI(uri string) *Object {
 	(*ld.Node)(o).SetNodes(ostatus.InReplyToAtomURI, ld.Node{ID: uri})
 	return o
@@ -379,7 +379,7 @@ func (o *Object) SetInReplyToAtomURI(uri string) *Object {
 
 // GetUpdated returns the value in [as.Updated].
 //
-// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-endtime.
+// See https://www.w3.org/TR/activitystreams-vocabulary/#dfn-updated.
 func (o *Object) GetUpdated() jsontext.Value {
 	if nodes := (*ld.Node)(o).GetNodes(as.Updated); len(nodes) == 1 {
 		return nodes[0].Value
