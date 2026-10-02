@@ -17,7 +17,7 @@ const (
 )
 
 func CompactIRI(iri string) string {
-	return Prefix + `:` + Term(iri)
+	return Prefix + `:` + strings.TrimPrefix(iri, Namespace)
 }
 
 func Term(iri string) string {
@@ -25,10 +25,8 @@ func Term(iri string) string {
 }
 
 func TermDefForIRI(iri string) map[string]any {
-	term := strings.TrimPrefix(iri, Namespace)
-
 	return map[string]any{
-		Prefix: Namespace,
-		term:   Prefix + ":" + term,
+		Prefix:    Namespace,
+		Term(iri): CompactIRI(iri),
 	}
 }

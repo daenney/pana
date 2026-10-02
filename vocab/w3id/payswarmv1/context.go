@@ -18,11 +18,16 @@ const (
 )
 
 func CompactIRI(iri string) string {
-	return Prefix + `:` + Term(iri)
+	return Prefix + `:` + strings.TrimPrefix(iri, Namespace)
 }
 
 func Term(iri string) string {
-	return strings.TrimPrefix(iri, Namespace)
+	switch iri {
+	case PaymentProcessor:
+		return "paymentProcessor"
+	default:
+		return strings.TrimPrefix(iri, Namespace)
+	}
 }
 
 func TermDefForIRI(iri string) map[string]any {

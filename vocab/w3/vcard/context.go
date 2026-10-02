@@ -10,7 +10,7 @@ const Namespace = "http://www.w3.org/2006/vcard/ns#"
 const Prefix = "vcard"
 
 func CompactIRI(iri string) string {
-	return Prefix + `:` + Term(iri)
+	return Prefix + `:` + strings.TrimPrefix(iri, Namespace)
 }
 
 func Term(iri string) string {
