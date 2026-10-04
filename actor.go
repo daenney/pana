@@ -18,30 +18,62 @@ import (
 // See https://www.w3.org/TR/activitypub/#actor-objects.
 type Actor Object
 
-// Application is the ActivityStreams Application type.
-type Application = Actor
-
-// Group is the ActivityStreams Group type.
-type Group = Actor
-
-// Organisation is the ActivityStreams Organization type.
-type Organisation = Actor
-
-// Organization is the ActivityStreams Organization type.
-type Organization = Organisation
-
-// Person is the ActivityStreams Person type.
-type Person = Actor
-
-// Service is the ActivityStreams Service type.
-type Service = Actor
-
 // NewActor initialises a new Actor.
+//
+// It's initialised with [as.TypePerson]. Use [Actor.SetType] to override it.
 func NewActor() *Actor {
 	return &Actor{
 		Properties: make(ld.Properties),
 		Type:       []string{as.TypePerson},
 	}
+}
+
+// Application is the ActivityStreams Application type.
+type Application = Actor
+
+// NewApplication initialises a new Actor with [as.TypeApplication].
+func NewApplication() *Application {
+	return (*Application)(NewActor().SetType(as.TypeApplication))
+}
+
+// Group is the ActivityStreams Group type.
+type Group = Actor
+
+// NewGroup initialises a new Actor with [as.TypeGroup].
+func NewGroup() *Group {
+	return (*Group)(NewActor().SetType(as.TypeGroup))
+}
+
+// Organisation is the ActivityStreams Organization type.
+type Organisation = Actor
+
+// NewOrganisation initialises a new Actor with [as.TypeOrganization].
+func NewOrganisation() *Organisation {
+	return (*Organisation)(NewActor().SetType(as.TypeOrganization))
+}
+
+// Organization is the ActivityStreams Organization type.
+type Organization = Organisation
+
+// NewOrganization initialises a new Actor with [as.TypeOrganization].
+func NewOrganization() *Organization {
+	return NewOrganisation()
+}
+
+// Person is the ActivityStreams Person type.
+type Person = Actor
+
+// NewPerson initialises a new Actor with [as.TypePerson].
+func NewPerson() *Person {
+	return NewActor()
+}
+
+// Service is the ActivityStreams Service type.
+type Service = Actor
+
+// NewService initialises a new Actor with [as.TypeService].
+func NewService() *Service {
+	return (*Service)(NewActor().SetType(as.TypeService))
 }
 
 // Build finalises the Actor.
